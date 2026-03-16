@@ -1,0 +1,200 @@
+{
+  "brand": {
+    "name": "AlgoViz Pro",
+    "identity": "The Engineering Standard for Algorithm Mastery",
+    "emotional_tone": "Precision, Clarity, Flow, Mastery",
+    "archetype": "The Architect (Structure + Vision)"
+  },
+  "typography": {
+    "fonts": {
+      "headings": {
+        "family": "Space Grotesk, sans-serif",
+        "weights": ["500", "700"],
+        "tracking": "-0.03em",
+        "usage": "Landing page headers, Dashboard section titles, Modal headers"
+      },
+      "body": {
+        "family": "Manrope, sans-serif",
+        "weights": ["400", "500", "600"],
+        "usage": "General text, descriptions, tooltips"
+      },
+      "code": {
+        "family": "JetBrains Mono, monospace",
+        "weights": ["400"],
+        "usage": "Code editor, complexity notation (O(n)), algorithm steps"
+      }
+    },
+    "scale": {
+      "h1": "text-4xl md:text-6xl font-bold tracking-tighter",
+      "h2": "text-3xl md:text-4xl font-semibold tracking-tight",
+      "h3": "text-2xl font-medium",
+      "body-lg": "text-lg leading-relaxed",
+      "body": "text-base leading-relaxed text-muted-foreground",
+      "caption": "text-sm text-muted-foreground uppercase tracking-wider"
+    }
+  },
+  "colors": {
+    "palettes": {
+      "light": {
+        "background": "0 0% 100%",
+        "foreground": "240 10% 3.9%",
+        "primary": "221 83% 53%",
+        "primary_foreground": "210 40% 98%",
+        "card": "0 0% 100%",
+        "border": "240 5.9% 90%",
+        "accent": "240 4.8% 95.9%",
+        "description": "Clean, academic, paper-like. Focus on high contrast for daylight reading."
+      },
+      "dark": {
+        "background": "240 10% 3.9%",
+        "foreground": "0 0% 98%",
+        "primary": "217 91% 60%",
+        "primary_foreground": "222 47% 11%",
+        "card": "240 10% 3.9%",
+        "border": "240 3.7% 15.9%",
+        "accent": "240 3.7% 15.9%",
+        "description": "Standard IDE theme. Deep blues/grays. Reduces eye strain."
+      },
+      "hacker": {
+        "background": "0 0% 0%",
+        "foreground": "123 100% 50%",
+        "primary": "123 100% 50%",
+        "primary_foreground": "0 0% 0%",
+        "card": "0 0% 5%",
+        "border": "123 100% 25%",
+        "accent": "123 100% 10%",
+        "ring": "123 100% 50%",
+        "description": "Matrix/Terminal style. High contrast neon green on pure black. Monospace everything preferred."
+      }
+    },
+    "visualization_colors": {
+      "default": "bg-primary",
+      "compare": "bg-yellow-500",
+      "swap": "bg-red-500",
+      "sorted": "bg-green-500",
+      "visited": "bg-blue-400/50",
+      "path": "bg-yellow-400"
+    }
+  },
+  "layout_strategies": {
+    "dashboard": {
+      "type": "bento_grid",
+      "grid_cols": "grid-cols-12",
+      "gap": "gap-4",
+      "zones": {
+        "sidebar": "col-span-2 hidden lg:block h-[calc(100vh-4rem)] sticky top-16",
+        "canvas_area": "col-span-12 lg:col-span-7 h-[600px] lg:h-auto min-h-[500px] rounded-xl border bg-card relative overflow-hidden",
+        "controls_panel": "col-span-12 lg:col-span-3 flex flex-col gap-4",
+        "code_panel": "col-span-12 lg:col-span-3 h-[300px] lg:h-auto bg-muted/30 rounded-xl border p-4",
+        "analytics_bar": "col-span-12 h-20 bg-card border rounded-lg flex items-center justify-between px-6"
+      }
+    },
+    "marketing": {
+      "hero": {
+        "alignment": "left-aligned with 3D element on right",
+        "typography": "display-large",
+        "cta": "high-contrast"
+      },
+      "features": {
+        "layout": "zig-zag or bento grid",
+        "card_style": "glassmorphism or tracing_beam"
+      }
+    }
+  },
+  "component_rules": {
+    "buttons": {
+      "primary": "rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95",
+      "secondary": "rounded-full border hover:bg-muted transition-colors",
+      "ghost": "rounded-md hover:bg-accent hover:text-accent-foreground",
+      "controls": "h-10 w-10 rounded-full p-2 hover:bg-accent flex items-center justify-center transition-transform hover:scale-110"
+    },
+    "cards": {
+      "default": "rounded-xl border bg-card text-card-foreground shadow-sm hover:shadow-md transition-shadow duration-300",
+      "glass": "backdrop-blur-xl bg-background/60 border-white/10 shadow-xl",
+      "hacker": "rounded-none border-2 border-primary bg-black shadow-[4px_4px_0px_0px_rgba(0,255,0,1)]"
+    },
+    "inputs": {
+      "default": "h-10 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
+      "hacker": "rounded-none border-primary bg-black text-primary placeholder:text-primary/50 focus:ring-primary"
+    }
+  },
+  "visual_enhancers": {
+    "gradients": {
+      "hero_glow": "bg-gradient-to-tr from-primary/20 via-primary/5 to-transparent blur-3xl",
+      "code_highlight": "bg-gradient-to-r from-yellow-500/10 to-transparent border-l-2 border-yellow-500"
+    },
+    "borders": {
+      "tracing_beam": "use framer-motion to animate border color",
+      "subtle": "border border-border/50"
+    },
+    "shadows": {
+      "soft": "shadow-[0_8px_30px_rgb(0,0,0,0.04)]",
+      "neon": "shadow-[0_0_20px_rgba(0,255,65,0.3)]"
+    }
+  },
+  "motion_library": {
+    "page_transition": {
+      "initial": { "opacity": 0, "y": 20 },
+      "animate": { "opacity": 1, "y": 0 },
+      "exit": { "opacity": 0, "y": -20 },
+      "transition": { "duration": 0.4, "ease": "easeOut" }
+    },
+    "list_stagger": {
+      "container": {
+        "hidden": { "opacity": 0 },
+        "show": {
+          "opacity": 1,
+          "transition": { "staggerChildren": 0.1 }
+        }
+      },
+      "item": {
+        "hidden": { "opacity": 0, "y": 10 },
+        "show": { "opacity": 1, "y": 0 }
+      }
+    },
+    "visualization_swaps": {
+      "type": "spring",
+      "stiffness": 300,
+      "damping": 25
+    }
+  },
+  "assets": {
+    "images": {
+      "hero_bg": "https://images.unsplash.com/photo-1734971702046-87ab24ceba47?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2OTV8MHwxfHNlYXJjaHwzfHxhYnN0cmFjdCUyMHRlY2hub2xvZ3klMjBuZXR3b3JrJTIwbm9kZXN8ZW58MHx8fHwxNzczNjQ4MzMzfDA&ixlib=rb-4.1.0&q=85",
+      "code_demo": "https://images.unsplash.com/photo-1753998943918-dd2dfc4ee6ed?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzR8MHwxfHNlYXJjaHw0fHxjb2RlciUyMHdvcmtzcGFjZSUyMGRhcmslMjBtb2RlfGVufDB8fHx8MTc3MzY0ODMzM3ww&ixlib=rb-4.1.0&q=85",
+      "abstract_nodes": "https://images.unsplash.com/photo-1737505599162-d9932323a889?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2OTV8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHRlY2hub2xvZ3klMjBuZXR3b3JrJTIwbm9kZXN8ZW58MHx8fHwxNzczNjQ4MzMzfDA&ixlib=rb-4.1.0&q=85"
+    },
+    "icons": {
+      "library": "lucide-react",
+      "style": "stroke-1.5"
+    }
+  },
+  "instructions_to_main_agent": [
+    "1. THEME SETUP: Modify `index.css` to include the 'hacker' class definition alongside 'dark' and ':root'. Use the color values provided in `colors.palettes.hacker`.",
+    "2. FONT SETUP: Import 'Space Grotesk', 'Manrope', and 'JetBrains Mono' from Google Fonts in `index.css`.",
+    "3. LAYOUT: For the main Visualizer page, use a Resizable Panel Layout (using `react-resizable-panels` or similar, or just Flex/Grid if simpler) to allow users to adjust the size of the Canvas vs Code vs Controls.",
+    "4. VISUALIZATION CANVAS: This is the 'Hero' of the app. It must have a subtle grid background (`bg-grid-white/[0.02]`) and be centered.",
+    "5. CONTROLS: Group controls logically (Playback, Speed, Input Size). Do not scatter them. Use a 'Control Bar' at the bottom or a 'Control Panel' on the side.",
+    "6. AI TUTOR: Make it a collapsible sidebar or a floating drawer. It should not block the main view.",
+    "7. DEBUGGER: Use a tabular view for 'Distance Arrays' or 'Visited Nodes'. Make it look like a real debugger watch window.",
+    "8. ACCESSIBILITY: Ensure color contrast ratios are met, especially in 'Hacker Mode'. Use text labels alongside icons.",
+    "9. CHARTING: Use `recharts` for the Complexity Analysis charts. Style them to match the active theme (Grid lines, Axis colors)."
+  ],
+  "universal_guidelines": [
+    "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy",
+    "Use glass-morphism effects with backdrop filters (12-24px blur)",
+    "You MUST NOT apply universal transition. Eg: `transition: all`. This results in breaking transforms. Always add transitions for specific interactive elements like button, input excluding transforms",
+    "You MUST NOT center align the app container, ie do not add `.App { text-align: center; }` in the css file. This disrupts the human natural reading flow of text",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style",
+    "NEVER: use AI assistant Emoji characters like 🤖 etc for icons.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Prioritize using pre-existing components from src/components/ui when applicable",
+    "Components MUST use named exports",
+    "Pages MUST use default exports",
+    "Use `sonner` for toasts located in `/app/src/components/ui/sonner.tsx`"
+  ]
+}
