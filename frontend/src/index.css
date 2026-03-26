@@ -130,4 +130,13 @@
       linear-gradient(to bottom, hsl(var(--border) / 0.25) 1px, transparent 1px);
     background-size: 24px 24px;
   }
+
+  @keyframes graphFlow {
+    from {
+      stroke-dashoffset: 14;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
 }

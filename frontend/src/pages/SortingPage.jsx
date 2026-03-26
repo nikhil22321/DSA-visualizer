@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Pause, Play, RefreshCw, RotateCcw, Volume2 } from "lucide-react";
+import { Pause, Play, RefreshCw, RotateCcw, StepBack, StepForward, Volume2 } from "lucide-react";
 
 import { AITutorDrawer } from "@/components/common/AITutorDrawer";
 import { PageMotionWrapper } from "@/components/common/PageMotionWrapper";
+import { TimelineSlider } from "@/components/common/TimelineSlider";
 import { SortingBars } from "@/components/visuals/SortingBars";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -40,6 +41,11 @@ export default function SortingPage() {
   const [isCompleted, setIsCompleted] = useState(false);
   const [waveIndex, setWaveIndex] = useState(-1);
   const [audioEnabled, setAudioEnabled] = useState(false);
+  const [comparisonEnabled, setComparisonEnabled] = useState(false);
+  const [comparisonAlgorithm, setComparisonAlgorithm] = useState("merge");
+  const [comparisonSteps, setComparisonSteps] = useState([]);
+  const [comparisonStepIndex, setComparisonStepIndex] = useState(0);
+  const [comparisonStats, setComparisonStats] = useState({ comparisons: 0, swaps: 0 });
 
   const pauseRef = useRef(false);
   const abortRef = useRef(false);
@@ -70,6 +76,18 @@ export default function SortingPage() {
     () => highlightedPseudocode(algorithmInfo.pseudocode, currentStep.line),
     [algorithmInfo.pseudocode, currentStep.line],
   );
+
+  const comparisonInfo = useMemo(() => getSortingInfo(comparisonAlgorithm), [comparisonAlgorithm]);
+  const comparisonPreview = useMemo(() => {
+    if (!comparisonEnabled) return null;
+    const base = initialRunArray.length ? initialRunArray : array;
+    return prepareSortingSession([...base], comparisonAlgorithm);
+  }, [comparisonEnabled, comparisonAlgorithm, initialRunArray, array]);
+  const comparisonStep =
+    comparisonSteps[Math.min(stepIndex, Math.max(comparisonSteps.length - 1, 0))] ||
+    comparisonPreview?.steps?.[Math.min(stepIndex, Math.max((comparisonPreview?.steps?.length || 1) - 1, 0))] ||
+    comparisonPreview?.steps?.[0] ||
+    currentStep;
 
   const playTone = (step) => {
     if (!audioEnabled || !["compare", "swap"].includes(step.type)) return;
@@ -105,6 +123,9 @@ export default function SortingPage() {
     setStepIndex(0);
     setStats(initialStats);
     setArray(nextArray);
+    setComparisonSteps([]);
+    setComparisonStepIndex(0);
+    setComparisonStats({ comparisons: 0, swaps: 0 });
   };
 
   const generateArray = () => {
@@ -122,30 +143,18 @@ export default function SortingPage() {
     }
   }, [arraySize]);
 
-  const startSorting = async () => {
-    if (isRunning) return;
-
-    const sourceArray = [...array];
-    setInitialRunArray(sourceArray);
-    const session = prepareSortingSession(sourceArray, algorithm);
-
-    abortRef.current = false;
-    pauseRef.current = false;
-    setIsPaused(false);
-    setIsCompleted(false);
-    setWaveIndex(-1);
-    setSteps(session.steps);
+  const runSessionSteps = async ({ primarySteps, compareSteps = [], sourceLength }) => {
     setStepIndex(0);
-    setStats(initialStats);
-    setIsRunning(true);
-
-    await nextFrame();
+    setComparisonStepIndex(0);
     const result = await executeSortingSession({
-      steps: session.steps,
+      steps: primarySteps,
       onStep: (step, index, elapsedMs) => {
         setStepIndex(index);
         setArray(step.array);
         setStats(statsFromStep(step, elapsedMs));
+        if (compareSteps.length) {
+          setComparisonStepIndex(Math.min(index, compareSteps.length - 1));
+        }
       },
       getDelay: () => speedToDelay(speed),
       pauseRef,
@@ -155,18 +164,63 @@ export default function SortingPage() {
 
     if (!result.completed || abortRef.current) {
       setIsRunning(false);
-      return;
+      return false;
     }
 
     setStats((prev) => ({ ...prev, executionTimeMs: result.elapsed }));
     setIsCompleted(true);
     await playSortedWave({
-      length: sourceArray.length,
+      length: sourceLength,
       setWaveIndex,
       getDelay: () => speedToDelay(speed),
       abortRef,
     });
     setIsRunning(false);
+    return true;
+  };
+
+  const startSorting = async () => {
+    if (isRunning) return;
+
+    const sourceArray = [...array];
+    setInitialRunArray(sourceArray);
+    const session = prepareSortingSession(sourceArray, algorithm);
+    const compareSession = comparisonEnabled
+      ? prepareSortingSession(sourceArray, comparisonAlgorithm)
+      : null;
+
+    abortRef.current = false;
+    pauseRef.current = false;
+    setIsPaused(false);
+    setIsCompleted(false);
+    setWaveIndex(-1);
+    setSteps(session.steps);
+    setComparisonSteps(compareSession?.steps || []);
+    setComparisonStats(compareSession?.stats || { comparisons: 0, swaps: 0 });
+    setStats(initialStats);
+    setIsRunning(true);
+
+    await nextFrame();
+    await runSessionSteps({
+      primarySteps: session.steps,
+      compareSteps: compareSession?.steps || [],
+      sourceLength: sourceArray.length,
+    });
+  };
+
+  const playbackSorting = async () => {
+    if (isRunning || !steps.length) return;
+    abortRef.current = false;
+    pauseRef.current = false;
+    setIsPaused(false);
+    setIsCompleted(false);
+    setWaveIndex(-1);
+    setIsRunning(true);
+    await runSessionSteps({
+      primarySteps: steps,
+      compareSteps: comparisonSteps,
+      sourceLength: initialRunArray.length || array.length,
+    });
   };
 
   const pauseSorting = () => {
@@ -206,7 +260,7 @@ export default function SortingPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-3" data-testid="sorting-advanced-control-grid">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-4" data-testid="sorting-advanced-control-grid">
             <div>
               <p className="mb-2 text-xs uppercase tracking-widest text-muted-foreground">Algorithm</p>
               <Select value={algorithm} onValueChange={setAlgorithm}>
@@ -252,7 +306,36 @@ export default function SortingPage() {
                 <span>Fast (50ms)</span>
               </p>
             </div>
+
+            <div className="flex items-center justify-between rounded-xl border border-border px-3 py-2" data-testid="sorting-comparison-toggle-panel">
+              <span className="text-sm font-medium">Comparison Mode</span>
+              <Switch checked={comparisonEnabled} onCheckedChange={setComparisonEnabled} data-testid="sorting-comparison-toggle" />
+            </div>
           </div>
+
+          {comparisonEnabled && (
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2" data-testid="sorting-comparison-config-grid">
+              <div>
+                <p className="mb-2 text-xs uppercase tracking-widest text-muted-foreground">Comparison Algorithm</p>
+                <Select value={comparisonAlgorithm} onValueChange={setComparisonAlgorithm}>
+                  <SelectTrigger data-testid="sorting-comparison-algorithm-dropdown">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {algorithms.map((option) => (
+                      <SelectItem key={option.value} value={option.value} data-testid={`sorting-comparison-option-${option.value}`}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="rounded-xl border border-border/60 bg-background/70 p-3 text-sm" data-testid="sorting-comparison-summary">
+                <p><strong>{algorithmInfo.label}</strong>: C {stats.comparisons} | S {stats.swaps}</p>
+                <p className="mt-1"><strong>{comparisonInfo.label}</strong>: C {comparisonStats.comparisons || comparisonPreview?.stats?.comparisons || 0} | S {comparisonStats.swaps || comparisonPreview?.stats?.swaps || 0}</p>
+              </div>
+            </div>
+          )}
 
           <div className="flex flex-wrap gap-2" data-testid="sorting-main-action-buttons">
             <Button type="button" variant="secondary" onClick={generateArray} data-testid="sorting-generate-array-button">
@@ -269,6 +352,15 @@ export default function SortingPage() {
             </Button>
             <Button type="button" variant="ghost" onClick={resetSorting} data-testid="sorting-reset-button">
               <RotateCcw className="h-4 w-4" /> Reset
+            </Button>
+            <Button type="button" variant="outline" onClick={playbackSorting} disabled={isRunning || !steps.length} data-testid="sorting-playback-button">
+              <RefreshCw className="h-4 w-4" /> Playback
+            </Button>
+            <Button type="button" variant="outline" onClick={() => setStepIndex((prev) => Math.max(0, prev - 1))} disabled={isRunning || !steps.length} data-testid="sorting-step-back-button">
+              <StepBack className="h-4 w-4" />
+            </Button>
+            <Button type="button" variant="outline" onClick={() => setStepIndex((prev) => Math.min(steps.length - 1, prev + 1))} disabled={isRunning || !steps.length} data-testid="sorting-step-forward-button">
+              <StepForward className="h-4 w-4" />
             </Button>
             <AITutorDrawer
               algorithm={algorithmInfo.label}
@@ -291,6 +383,11 @@ export default function SortingPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <SortingBars step={currentStep} waveIndex={waveIndex} testId="sorting-advanced-bars" />
+              <TimelineSlider
+                currentStep={stepIndex}
+                maxStep={Math.max(steps.length - 1, 0)}
+                onChange={(value) => setStepIndex(value)}
+              />
               {isCompleted && (
                 <p className="rounded-xl border border-green-500/40 bg-green-500/10 px-4 py-3 text-sm font-semibold text-green-600" data-testid="sorting-success-message">
                   Array Sorted Successfully
@@ -298,6 +395,19 @@ export default function SortingPage() {
               )}
             </CardContent>
           </Card>
+
+          {comparisonEnabled && (
+            <Card className="border-border/70 bg-card/70" data-testid="sorting-comparison-visual-card">
+              <CardHeader>
+                <CardTitle className="font-heading text-base" data-testid="sorting-comparison-visual-title">
+                  Comparison View: {comparisonInfo.label}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <SortingBars step={comparisonStep} waveIndex={-1} testId="sorting-comparison-bars" />
+              </CardContent>
+            </Card>
+          )}
 
           <Card className="border-border/70 bg-card/70" data-testid="sorting-step-tracker-card">
             <CardHeader>

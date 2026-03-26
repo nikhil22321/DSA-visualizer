@@ -1,63 +1,172 @@
-export const GraphCanvas = ({ graph, step, startNode }) => {
-  const visited = new Set(step?.visited || []);
-  const frontier = new Set(step?.frontier || []);
+import { useRef, useState } from "react";
+
+export const GraphCanvas = ({
+  nodes,
+  edges,
+  directed,
+  weighted,
+  step,
+  startNode,
+  targetNode,
+  deleteMode,
+  edgeMode,
+  pendingEdgeSource,
+  onCanvasAddNode,
+  onNodeMove,
+  onNodeClick,
+  onNodeDelete,
+  onEdgeDelete,
+}) => {
+  const svgRef = useRef(null);
+  const [draggingNodeId, setDraggingNodeId] = useState(null);
+
+  const visited = new Set(step?.visitedNodes || []);
+  const activeNodes = new Set(step?.activeNodes || []);
   const activeEdges = new Set(step?.activeEdges || []);
+
+  const getSvgPoint = (event) => {
+    const svg = svgRef.current;
+    if (!svg) return { x: 0, y: 0 };
+    const rect = svg.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 1000;
+    const y = ((event.clientY - rect.top) / rect.height) * 560;
+    return { x, y };
+  };
+
+  const handleCanvasClick = (event) => {
+    if (event.target.tagName !== "svg") return;
+    const point = getSvgPoint(event);
+    onCanvasAddNode(point);
+  };
+
+  const handleMouseMove = (event) => {
+    if (!draggingNodeId) return;
+    const point = getSvgPoint(event);
+    onNodeMove(draggingNodeId, point);
+  };
 
   return (
     <div className="relative rounded-2xl border border-border/60 bg-background/70 p-4" data-testid="graph-canvas-root">
       <div className="visual-grid absolute inset-0 opacity-70" aria-hidden />
-      <svg viewBox="0 0 100 100" className="relative z-10 h-[420px] w-full" data-testid="graph-canvas-svg">
-        {graph.edges.map((edge) => {
-          const source = graph.nodes.find((node) => node.id === edge.source);
-          const target = graph.nodes.find((node) => node.id === edge.target);
+      <svg
+        ref={svgRef}
+        viewBox="0 0 1000 560"
+        className="relative z-10 h-[440px] w-full cursor-crosshair"
+        data-testid="graph-canvas-svg"
+        onClick={handleCanvasClick}
+        onMouseMove={handleMouseMove}
+        onMouseUp={() => setDraggingNodeId(null)}
+        onMouseLeave={() => setDraggingNodeId(null)}
+      >
+        <defs>
+          <marker id="graph-arrow" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto-start-reverse">
+            <path d="M0,0 L12,6 L0,12 z" fill="hsl(var(--muted-foreground))" />
+          </marker>
+          <marker id="graph-arrow-active" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto-start-reverse">
+            <path d="M0,0 L12,6 L0,12 z" fill="hsl(var(--chart-4))" />
+          </marker>
+        </defs>
+
+        {edges.map((edge) => {
+          const source = nodes.find((node) => node.id === edge.source);
+          const target = nodes.find((node) => node.id === edge.target);
           if (!source || !target) return null;
+
+          const isActive = activeEdges.has(edge.id);
+          const stroke = isActive ? "hsl(var(--chart-4))" : "hsl(var(--muted-foreground))";
           return (
-            <g key={edge.id} data-testid={`graph-edge-${edge.id}`}>
+            <g
+              key={edge.id}
+              data-testid={`graph-edge-${edge.id}`}
+              onContextMenu={(event) => {
+                event.preventDefault();
+                onEdgeDelete(edge.id);
+              }}
+            >
               <line
                 x1={source.x}
                 y1={source.y}
                 x2={target.x}
                 y2={target.y}
-                stroke={activeEdges.has(edge.id) ? "hsl(var(--chart-4))" : "hsl(var(--border))"}
-                strokeWidth={activeEdges.has(edge.id) ? 1.4 : 0.7}
+                stroke={stroke}
+                strokeWidth={isActive ? 4 : 2.2}
+                markerEnd={directed ? `url(#${isActive ? "graph-arrow-active" : "graph-arrow"})` : undefined}
+                strokeDasharray={isActive ? "8 5" : undefined}
+                className={isActive ? "animate-[graphFlow_0.9s_linear_infinite]" : ""}
+                style={{ transition: "all 0.3s ease" }}
               />
-              <text
-                x={(source.x + target.x) / 2}
-                y={(source.y + target.y) / 2}
-                className="fill-foreground text-[3px]"
-                data-testid={`graph-edge-weight-${edge.id}`}
-              >
-                {edge.weight}
-              </text>
+              {weighted && (
+                <text
+                  x={(source.x + target.x) / 2}
+                  y={(source.y + target.y) / 2 - 8}
+                  textAnchor="middle"
+                  className="fill-foreground text-xs font-semibold"
+                  data-testid={`graph-edge-weight-${edge.id}`}
+                >
+                  {edge.weight}
+                </text>
+              )}
             </g>
           );
         })}
 
-        {graph.nodes.map((node) => {
+        {nodes.map((node) => {
           const isVisited = visited.has(node.id);
-          const isFrontier = frontier.has(node.id);
-          const isStart = String(startNode) === String(node.id);
+          const isActive = activeNodes.has(node.id);
+          const isStart = startNode === node.id;
+          const isTarget = targetNode === node.id;
+          const isPending = pendingEdgeSource === node.id;
+
+          const fill = isVisited ? "#22c55e" : isActive ? "#facc15" : "#3b82f6";
           return (
-            <g key={node.id} data-testid={`graph-node-${node.id}`}>
+            <g
+              key={node.id}
+              data-testid={`graph-node-${node.id}`}
+              onClick={(event) => {
+                event.stopPropagation();
+                onNodeClick(node.id);
+              }}
+              onContextMenu={(event) => {
+                event.preventDefault();
+                onNodeDelete(node.id);
+              }}
+            >
               <circle
                 cx={node.x}
                 cy={node.y}
-                r="4.3"
-                stroke="hsl(var(--background))"
-                strokeWidth="0.6"
-                fill={
-                  isStart
-                    ? "hsl(var(--chart-2))"
-                    : isVisited
-                      ? "hsl(var(--chart-1))"
-                      : isFrontier
-                        ? "hsl(var(--chart-4))"
-                        : "hsl(var(--muted))"
-                }
+                r={isActive || isVisited ? 28 : 24}
+                fill={fill}
+                stroke={deleteMode ? "#ef4444" : isPending ? "#a855f7" : isStart ? "#06b6d4" : isTarget ? "#f97316" : "#0f172a"}
+                strokeWidth={isStart || isTarget || isPending ? 4 : 2}
+                style={{
+                  transition: "all 0.3s ease",
+                  filter: isActive || isVisited ? "drop-shadow(0 0 12px rgba(250,204,21,0.55))" : "none",
+                  transformOrigin: `${node.x}px ${node.y}px`,
+                  transform: isActive ? "scale(1.1)" : "scale(1)",
+                }}
+                onMouseDown={(event) => {
+                  event.stopPropagation();
+                  setDraggingNodeId(node.id);
+                }}
               />
-              <text x={node.x} y={node.y + 1.3} textAnchor="middle" className="fill-foreground text-[2.5px] font-semibold">
+              <text x={node.x} y={node.y + 4} textAnchor="middle" className="fill-primary-foreground text-sm font-bold">
                 {node.id}
               </text>
+              {isStart && (
+                <text x={node.x} y={node.y - 34} textAnchor="middle" className="fill-cyan-400 text-xs font-semibold" data-testid={`graph-start-tag-${node.id}`}>
+                  START
+                </text>
+              )}
+              {isTarget && (
+                <text x={node.x} y={node.y + 38} textAnchor="middle" className="fill-orange-400 text-xs font-semibold" data-testid={`graph-target-tag-${node.id}`}>
+                  TARGET
+                </text>
+              )}
+              {edgeMode && isPending && (
+                <text x={node.x} y={node.y - 18} textAnchor="middle" className="fill-purple-400 text-[11px]">
+                  edge source
+                </text>
+              )}
             </g>
           );
         })}
