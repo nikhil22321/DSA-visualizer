@@ -36,38 +36,73 @@ const balancedParentheses = (s) => {
   return stack.length === 0;
 };
 
+const tokenizeInfix = (expr) => {
+  const cleaned = expr.replace(/\s+/g, "");
+  const tokens = cleaned.match(/\d+|[()+\-*/]/g);
+  if (!tokens || tokens.join("") !== cleaned) {
+    throw new Error("Invalid infix expression");
+  }
+  return tokens;
+};
+
 const infixToPostfix = (expr) => {
   const prec = { "+": 1, "-": 1, "*": 2, "/": 2 };
   const out = [];
   const ops = [];
-  expr.replace(/\s+/g, "").split("").forEach((ch) => {
-    if (/\d/.test(ch)) out.push(ch);
+  const tokens = tokenizeInfix(expr);
+  tokens.forEach((ch) => {
+    if (/^\d+$/.test(ch)) out.push(ch);
     else if (ch === "(") ops.push(ch);
     else if (ch === ")") {
       while (ops.length && ops[ops.length - 1] !== "(") out.push(ops.pop());
+      if (!ops.length) throw new Error("Mismatched parentheses");
       ops.pop();
     } else {
+      if (!prec[ch]) throw new Error("Invalid operator");
       while (ops.length && prec[ops[ops.length - 1]] >= prec[ch]) out.push(ops.pop());
       ops.push(ch);
     }
   });
-  while (ops.length) out.push(ops.pop());
+  while (ops.length) {
+    const op = ops.pop();
+    if (op === "(") throw new Error("Mismatched parentheses");
+    out.push(op);
+  }
   return out.join(" ");
 };
 
 const evalPostfix = (expr) => {
   const s = [];
-  expr.trim().split(/\s+/).forEach((token) => {
-    if (/^-?\d+$/.test(token)) s.push(Number(token));
-    else {
-      const b = s.pop();
-      const a = s.pop();
-      if (token === "+") s.push(a + b);
-      if (token === "-") s.push(a - b);
-      if (token === "*") s.push(a * b);
-      if (token === "/") s.push(Math.floor(a / b));
+  const tokens = expr.trim().split(/\s+/).filter(Boolean);
+  if (!tokens.length) throw new Error("Empty postfix expression");
+
+  tokens.forEach((token) => {
+    if (/^-?\d+$/.test(token)) {
+      s.push(Number(token));
+      return;
+    }
+
+    if (!["+", "-", "*", "/"].includes(token)) {
+      throw new Error(`Invalid token: ${token}`);
+    }
+    if (s.length < 2) {
+      throw new Error("Invalid postfix expression: operand underflow");
+    }
+
+    const b = s.pop();
+    const a = s.pop();
+    if (token === "+") s.push(a + b);
+    if (token === "-") s.push(a - b);
+    if (token === "*") s.push(a * b);
+    if (token === "/") {
+      if (b === 0) throw new Error("Division by zero");
+      s.push(Math.floor(a / b));
     }
   });
+
+  if (s.length !== 1) {
+    throw new Error("Invalid postfix expression: leftover operands");
+  }
   return s.pop();
 };
 
@@ -165,8 +200,11 @@ export default function StackPage() {
       const msg = `Postfix Evaluation Result: ${result}`;
       setStatus(msg);
       pushStep("Postfix Evaluation", stack, { status: msg, internalState: { result } });
-    } catch {
-      toast.error("Use space-separated postfix expression, e.g. 3 4 + 2 *");
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : "Invalid postfix expression";
+      toast.error(msg);
+      setStatus(msg);
+      pushStep("Postfix Evaluation Error", stack, { status: msg, internalState: { expressionInput } });
     }
   };
 

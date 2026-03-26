@@ -5,7 +5,7 @@ Build a startup-level interactive Data Structures and Algorithms Visualizer plat
 
 ## 2) User Choices (explicit)
 - Fully polished modules: **Sorting + Graph + Pathfinding + Maze**
-- Production-ready scaffolds: **Tree, Linked List, Stack, Queue**
+- Follow-up request: **also fully implement Tree, Linked List, Stack, Queue modules**
 - AI Tutor model: **OpenAI GPT-5.2**
 - Key choice: **Emergent universal key**
 - Theme system: **Light + Dark + Hacker**
@@ -56,7 +56,22 @@ Build a startup-level interactive Data Structures and Algorithms Visualizer plat
 - Maze module:
   - Recursive Backtracking, Prim, Kruskal, Recursive Division
   - Playback timeline, stats, save/export + AI tutor
-- Scaffold pages delivered for Tree/Linked List/Stack/Queue with production route architecture
+- Tree module:
+  - Binary Tree, BST, AVL, Trie, Segment Tree modes
+  - Insert/Delete/Search controls, traversals (pre/in/post/level), and segment query/update flows
+  - Visual timeline playback, stats panel, and AI tutor integration
+- Linked List module:
+  - Singly, Doubly, Circular linked list modes
+  - Insert/Delete/Search/Reverse/Cycle Detection operations
+  - Node strip visualization with timeline playback and operation output panel
+- Stack module:
+  - Push/Pop/Peek controls
+  - Applications: Balanced Parentheses, Infix→Postfix, Postfix Evaluation
+  - Reliability fix: multi-digit infix tokenization + strict postfix validation/error handling
+- Queue module:
+  - Queue, Circular Queue, Deque, Priority Queue modes
+  - Enqueue/Dequeue/Peek with front/rear variants and circular capacity reset
+  - Timeline playback and operation status output panel
 - Backend APIs delivered:
   - `/api/health`
   - `/api/ai/tutor`
@@ -72,12 +87,12 @@ Build a startup-level interactive Data Structures and Algorithms Visualizer plat
 ## 7) Verification Notes
 - Frontend and backend lint checks passed
 - API smoke tests passed for health, run save/share, recommendation, AI tutor
-- Browser flow checks passed for dashboard, sorting controls, graph view
+- Browser flow checks passed for dashboard, sorting, graph, pathfinding, maze, tree, linked list, stack, queue
 - Added backend regression tests under `/app/backend/tests/` (core endpoint coverage)
 
 ## 8) Prioritized Backlog
 ### P0 (next)
-- Implement share-link load support uniformly across Graph/Pathfinding/Maze (currently strongest on Sorting)
+- Implement share-link load support uniformly across Graph/Pathfinding/Maze/Tree/LinkedList/Stack/Queue
 - Add richer keyboard shortcuts map overlay and per-module shortcut hints
 - Add deterministic seed input controls in UI for Graph/Maze reproducible classroom demos
 
@@ -87,7 +102,6 @@ Build a startup-level interactive Data Structures and Algorithms Visualizer plat
 - Improve export pipeline robustness and explicit format labels in UI
 
 ### P2
-- Expand scaffold modules into fully interactive Tree/LinkedList/Stack/Queue engines
 - Add stress-test batch runs and comparative memory chart visualizations
 - Add richer accessibility pass (focus rings, narration hints, contrast audit)
 
@@ -95,6 +109,6 @@ Build a startup-level interactive Data Structures and Algorithms Visualizer plat
 - [ ] Unify replay sharing UX on non-sorting modules
 - [ ] Ship deterministic seed controls to visualizer headers
 - [ ] Add advanced quiz session + progress tracking
-- [ ] Expand scaffold modules into full simulations
+- [ ] Add share + saved run loaders for the newly completed Tree/List/Stack/Queue modules
 - [ ] Add richer recruiter-facing “project highlights” section on dashboard
 
