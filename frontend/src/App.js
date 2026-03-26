@@ -1,53 +1,37 @@
-import { useEffect } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import { ThemeProvider } from "next-themes";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+import { AppLayout } from "@/components/layout/AppLayout";
+import { Toaster } from "@/components/ui/sonner";
+import GraphPage from "@/pages/GraphPage";
+import HomeDashboard from "@/pages/HomeDashboard";
+import MazePage from "@/pages/MazePage";
+import PathfindingPage from "@/pages/PathfindingPage";
+import ScaffoldPage from "@/pages/ScaffoldPage";
+import SortingPage from "@/pages/SortingPage";
 
 function App() {
   return (
-    <div className="App">
+    <ThemeProvider attribute="class" defaultTheme="dark" themes={["light", "dark", "hacker"]} enableSystem={false}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
+          <Route path="/" element={<AppLayout />}>
+            <Route index element={<HomeDashboard />} />
+            <Route path="sorting" element={<SortingPage />} />
+            <Route path="graph" element={<GraphPage />} />
+            <Route path="pathfinding" element={<PathfindingPage />} />
+            <Route path="maze" element={<MazePage />} />
+            <Route path="tree" element={<ScaffoldPage type="tree" />} />
+            <Route path="linked-list" element={<ScaffoldPage type="linked-list" />} />
+            <Route path="stack" element={<ScaffoldPage type="stack" />} />
+            <Route path="queue" element={<ScaffoldPage type="queue" />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
       </BrowserRouter>
-    </div>
+      <Toaster position="top-right" />
+    </ThemeProvider>
   );
 }
 
