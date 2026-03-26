@@ -149,21 +149,21 @@ export const GraphCanvas = ({
                   setDraggingNodeId(node.id);
                 }}
               />
-              <text x={node.x} y={node.y + 4} textAnchor="middle" className="fill-primary-foreground text-sm font-bold">
+              <text x={node.x} y={node.y + 4} textAnchor="middle" className="fill-primary-foreground text-sm font-bold" style={{ pointerEvents: "none" }}>
                 {node.id}
               </text>
               {isStart && (
-                <text x={node.x} y={node.y - 34} textAnchor="middle" className="fill-cyan-400 text-xs font-semibold" data-testid={`graph-start-tag-${node.id}`}>
+                <text x={node.x} y={node.y - 34} textAnchor="middle" className="fill-cyan-400 text-xs font-semibold" data-testid={`graph-start-tag-${node.id}`} style={{ pointerEvents: "none" }}>
                   START
                 </text>
               )}
               {isTarget && (
-                <text x={node.x} y={node.y + 38} textAnchor="middle" className="fill-orange-400 text-xs font-semibold" data-testid={`graph-target-tag-${node.id}`}>
+                <text x={node.x} y={node.y + 38} textAnchor="middle" className="fill-orange-400 text-xs font-semibold" data-testid={`graph-target-tag-${node.id}`} style={{ pointerEvents: "none" }}>
                   TARGET
                 </text>
               )}
               {edgeMode && isPending && (
-                <text x={node.x} y={node.y - 18} textAnchor="middle" className="fill-purple-400 text-[11px]">
+                <text x={node.x} y={node.y - 18} textAnchor="middle" className="fill-purple-400 text-[11px]" style={{ pointerEvents: "none" }}>
                   edge source
                 </text>
               )}

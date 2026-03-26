@@ -49,12 +49,19 @@ Build a startup-level interactive Data Structures and Algorithms Visualizer plat
   - Core algorithms confirmed: Bubble, Selection, Insertion, Merge, Quick, Heap (+ optional Shell, Counting)
   - Professional animation/feedback system: compare/swap/overwrite/pivot step types, pointer tags (i/j/pivot), smooth bar transitions, swap motion effect, sorted wave confirmation
   - Advanced controls: algorithm dropdown, size slider (10–100), speed slider (slow↔fast), Generate/Start/Pause/Resume/Reset
+  - Restored comparison and playback capabilities (comparison toggle, second algorithm panel, replay button, step back/forward, timeline)
   - Real-time educational panels: step tracker, dynamic stats (comparisons/swaps/execution time), pseudocode line highlighting, algorithm complexity info panel
   - Labels auto-hide above 30 bars; optional audio feedback toggle implemented
 - Graph module:
-  - Graph generation + algorithms (BFS/DFS/Dijkstra/Bellman/Prim/Kruskal/Topo/Cycle/Bipartite/Components/Union-Find)
-  - Debugger watch window with internal state and distance map
-  - Playback/timeline/stats + save/export + AI tutor
+  - Upgraded to fully interactive graph builder with modular graph engine files:
+    - `modules/graphs/graphVisualizer.js`
+    - `modules/graphs/graphAlgorithms.js`
+    - `modules/graphs/graphUtils.js`
+  - Canvas interactions: add nodes by click, drag nodes, edge creation by node-to-node selection, node/edge deletion, start/target selection
+  - Graph mode controls: directed/undirected switch with arrow rendering and weighted graph toggle with weight entry/labels
+  - Algorithms delivered: BFS, DFS, Dijkstra, Topological Sort (directed only), Cycle Detection, Prim MST (undirected only), Kruskal MST (undirected only)
+  - Output panel + step tracker + dynamic stats + pseudocode highlighting + playback/timeline controls
+  - Existing graph route features preserved: save run, export PNG, AI tutor panel
 - Pathfinding module:
   - A*/Dijkstra/BFS/DFS/Greedy on interactive grid
   - Wall editing, playback, timeline, stats, debugger, save/export + AI tutor
