@@ -19,6 +19,9 @@ export const GraphCanvas = ({
 }) => {
   const svgRef = useRef(null);
   const [draggingNodeId, setDraggingNodeId] = useState(null);
+  const draggingRef = useRef(null);
+  const dragMovedRef = useRef(false);
+  const dragStartRef = useRef({ x: 0, y: 0 });
 
   const visited = new Set(step?.visitedNodes || []);
   const activeNodes = new Set(step?.activeNodes || []);
@@ -40,9 +43,12 @@ export const GraphCanvas = ({
   };
 
   const handleMouseMove = (event) => {
-    if (!draggingNodeId) return;
+    if (!draggingRef.current) return;
     const point = getSvgPoint(event);
-    onNodeMove(draggingNodeId, point);
+    const dx = Math.abs(point.x - dragStartRef.current.x);
+    const dy = Math.abs(point.y - dragStartRef.current.y);
+    if (dx > 2 || dy > 2) dragMovedRef.current = true;
+    onNodeMove(draggingRef.current, point);
   };
 
   return (
@@ -55,8 +61,14 @@ export const GraphCanvas = ({
         data-testid="graph-canvas-svg"
         onClick={handleCanvasClick}
         onMouseMove={handleMouseMove}
-        onMouseUp={() => setDraggingNodeId(null)}
-        onMouseLeave={() => setDraggingNodeId(null)}
+        onMouseUp={() => {
+          setDraggingNodeId(null);
+          draggingRef.current = null;
+        }}
+        onMouseLeave={() => {
+          setDraggingNodeId(null);
+          draggingRef.current = null;
+        }}
       >
         <defs>
           <marker id="graph-arrow" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto-start-reverse">
@@ -124,11 +136,23 @@ export const GraphCanvas = ({
               data-testid={`graph-node-${node.id}`}
               onClick={(event) => {
                 event.stopPropagation();
+                if (dragMovedRef.current) {
+                  dragMovedRef.current = false;
+                  return;
+                }
                 onNodeClick(node.id);
               }}
               onContextMenu={(event) => {
                 event.preventDefault();
                 onNodeDelete(node.id);
+              }}
+              onMouseDown={(event) => {
+                event.stopPropagation();
+                const point = getSvgPoint(event);
+                dragStartRef.current = point;
+                dragMovedRef.current = false;
+                setDraggingNodeId(node.id);
+                draggingRef.current = node.id;
               }}
             >
               <circle
@@ -143,10 +167,6 @@ export const GraphCanvas = ({
                   filter: isActive || isVisited ? "drop-shadow(0 0 12px rgba(250,204,21,0.55))" : "none",
                   transformOrigin: `${node.x}px ${node.y}px`,
                   transform: isActive ? "scale(1.1)" : "scale(1)",
-                }}
-                onMouseDown={(event) => {
-                  event.stopPropagation();
-                  setDraggingNodeId(node.id);
                 }}
               />
               <text x={node.x} y={node.y + 4} textAnchor="middle" className="fill-primary-foreground text-sm font-bold" style={{ pointerEvents: "none" }}>

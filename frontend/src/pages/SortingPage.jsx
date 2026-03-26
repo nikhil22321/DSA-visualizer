@@ -29,9 +29,9 @@ import {
 
 export default function SortingPage() {
   const [algorithm, setAlgorithm] = useState("quick");
-  const [arraySize, setArraySize] = useState(40);
-  const [speed, setSpeed] = useState(55);
-  const [array, setArray] = useState(() => generateSortingArray(40));
+  const [arraySize, setArraySize] = useState(16);
+  const [speed, setSpeed] = useState(100);
+  const [array, setArray] = useState(() => generateSortingArray(16));
   const [initialRunArray, setInitialRunArray] = useState([]);
   const [steps, setSteps] = useState([]);
   const [stepIndex, setStepIndex] = useState(0);
@@ -169,13 +169,13 @@ export default function SortingPage() {
 
     setStats((prev) => ({ ...prev, executionTimeMs: result.elapsed }));
     setIsCompleted(true);
+    setIsRunning(false);
     await playSortedWave({
       length: sourceLength,
       setWaveIndex,
       getDelay: () => speedToDelay(speed),
       abortRef,
     });
-    setIsRunning(false);
     return true;
   };
 
