@@ -1,0 +1,56 @@
+{
+  "summary": "Frontend-only retest completed for sorting pseudocode mapping. Quick Sort semantic mapping is fixed for pivot/compare/swap steps, and no out-of-range highlighting was seen for most algorithms. One HIGH issue remains in Selection Sort swap highlighting.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "SortingPage pseudocode panel (Selection Sort)",
+        "issue": "During active swap operations, no pseudocode line is highlighted (active_line=null).",
+        "selector": "[data-testid='sorting-active-step-title'], [data-testid^='sorting-pseudocode-line-']",
+        "priority": "HIGH"
+      }
+    ],
+    "integration_issues": [
+      {
+        "flow": "Selection Sort step-to-pseudocode mapping",
+        "issue": "Swap step emits line=6 while Selection Sort pseudocode has only 5 lines, causing out-of-range mapping and empty highlight.",
+        "affected_selectors": [
+          "[data-testid='sorting-algorithm-option-selection']",
+          "[data-testid='sorting-start-button']",
+          "[data-testid='sorting-active-step-title']",
+          "[data-testid^='sorting-pseudocode-line-']"
+        ]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/frontend/src/modules/sorting/sortingAlgorithms.js",
+    "/app/frontend/src/pages/SortingPage.jsx",
+    "/app/test_reports/iteration_4.json"
+  ],
+  "action_items": [
+    "Fix Selection Sort swap step mapping in sortingAlgorithms.js from line 6 to line 5 (or align pseudocode accordingly).",
+    "Add regression test that asserts active pseudocode line exists for every emitted step that has line > 0.",
+    "Re-run sorting retest after selection mapping fix."
+  ],
+  "critical_code_review_comments": [
+    "selectionSort records swap with line: 6, but selection pseudocode has 5 entries, creating invalid highlight index.",
+    "Quick Sort mapping appears corrected: pivot/compare/swap now align to lines 1/2 in UI runtime checks."
+  ],
+  "updated_files": [
+    "/app/test_reports/iteration_4.json"
+  ],
+  "success_rate": {
+    "backend": "N/A (skipped by request)",
+    "frontend": "87%"
+  },
+  "seed_data_creation": "None",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Primary retest scope was pseudocode mapping. Broad algorithm scan passed for bubble/insertion/merge/quick/heap/shell/counting, but targeted reproduction confirmed Selection Sort swap steps show no active pseudocode line. Repro is stable with Selection Sort, array size ~25, speed ~35.",
+  "rca of the issue": "RCA: Selection Sort swap step metadata uses out-of-range line value. In /app/frontend/src/modules/sorting/sortingAlgorithms.js, selectionSort swap record sets line: 6 while Selection Sort pseudocode array contains only 5 lines. Repro: open /sorting, select Selection Sort, start sort; when title shows 'Swap index X with min index Y', no pseudocode row is highlighted (active_line null). Mitigation: update step line mapping to 5 or expand pseudocode lines consistently with emitted step indices."
+}

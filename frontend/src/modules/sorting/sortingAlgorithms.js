@@ -157,7 +157,7 @@ const insertionSort = (input) => {
       type: "overwrite",
       indices: [j + 1],
       pointers: { i, j: j + 1 },
-      line: 7,
+          line: 6,
       description: `Insert key ${key} at index ${j + 1}`,
     });
   }
@@ -197,7 +197,7 @@ const mergeSort = (input) => {
         type: "overwrite",
         indices: [left + idx],
         pointers: { i: left, j: right },
-        line: 9,
+        line: 5,
         description: `Write ${value} at index ${left + idx}`,
       });
     });
@@ -228,7 +228,7 @@ const quickSort = (input) => {
       indices: [high],
       pointers: { i: low, j: high },
       pivotIndex: high,
-      line: 2,
+      line: 1,
       description: `Select pivot ${pivot} at index ${high}`,
     });
 
@@ -239,7 +239,7 @@ const quickSort = (input) => {
         indices: [j, high],
         pointers: { i, j },
         pivotIndex: high,
-        line: 4,
+        line: 2,
         description: `Compare index ${j} with pivot`,
       });
       if (arr[j] < pivot) {
@@ -251,7 +251,7 @@ const quickSort = (input) => {
           indices: [i, j],
           pointers: { i, j },
           pivotIndex: high,
-          line: 5,
+          line: 2,
           description: `Swap ${arr[j]} and ${arr[i]}`,
         });
       }
@@ -263,7 +263,7 @@ const quickSort = (input) => {
       indices: [i + 1, high],
       pointers: { i: i + 1, j: high },
       pivotIndex: i + 1,
-      line: 7,
+      line: 2,
       description: `Place pivot at index ${i + 1}`,
     });
     return i + 1;
@@ -298,13 +298,13 @@ const heapSort = (input) => {
     }
     if (right < n) {
       stats.comparisons += 1;
-      record({ type: "compare", indices: [right, largest], pointers: { i, j: right }, line: 5, description: "Compare right child" });
+      record({ type: "compare", indices: [right, largest], pointers: { i, j: right }, line: 4, description: "Compare right child" });
       if (arr[right] > arr[largest]) largest = right;
     }
     if (largest !== i) {
       [arr[i], arr[largest]] = [arr[largest], arr[i]];
       stats.swaps += 1;
-      record({ type: "swap", indices: [i, largest], pointers: { i, j: largest }, line: 6, description: `Swap ${i} and ${largest}` });
+      record({ type: "swap", indices: [i, largest], pointers: { i, j: largest }, line: 4, description: `Swap ${i} and ${largest}` });
       heapify(n, largest);
     }
   };
@@ -313,7 +313,7 @@ const heapSort = (input) => {
   for (let end = arr.length - 1; end > 0; end -= 1) {
     [arr[0], arr[end]] = [arr[end], arr[0]];
     stats.swaps += 1;
-    record({ type: "swap", indices: [0, end], pointers: { i: 0, j: end }, line: 9, description: `Move max to index ${end}` });
+    record({ type: "swap", indices: [0, end], pointers: { i: 0, j: end }, line: 2, description: `Move max to index ${end}` });
     heapify(end, 0);
   }
 
@@ -331,12 +331,12 @@ const shellSort = (input) => {
       while (j >= gap && arr[j - gap] > temp) {
         stats.comparisons += 1;
         arr[j] = arr[j - gap];
-        record({ type: "overwrite", indices: [j], pointers: { i, j }, line: 4, description: `Shift by gap ${gap}` });
+        record({ type: "overwrite", indices: [j], pointers: { i, j }, line: 2, description: `Shift by gap ${gap}` });
         j -= gap;
       }
       arr[j] = temp;
       stats.swaps += 1;
-      record({ type: "overwrite", indices: [j], pointers: { i, j }, line: 5, description: `Insert ${temp}` });
+      record({ type: "overwrite", indices: [j], pointers: { i, j }, line: 2, description: `Insert ${temp}` });
     }
   }
   finalize(arr, steps, stats);
@@ -356,7 +356,7 @@ const countingSort = (input) => {
     for (let i = 0; i < freq; i += 1) {
       arr[idx] = value;
       stats.swaps += 1;
-      record({ type: "overwrite", indices: [idx], pointers: { i: idx }, line: 4, description: `Write ${value}` });
+      record({ type: "overwrite", indices: [idx], pointers: { i: idx }, line: 3, description: `Write ${value}` });
       idx += 1;
     }
   });
