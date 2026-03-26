@@ -41,11 +41,16 @@ Build a startup-level interactive Data Structures and Algorithms Visualizer plat
 - Full SaaS shell: responsive sidebar navigation, sticky top control bar, theme switcher, learning/expert mode toggles
 - Home dashboard: hero, module cards, complexity simulator (D3), recommendation block, practice question preview, React Flow block builder
 - Sorting module:
-  - 9 algorithms (bubble/selection/insertion/merge/quick/heap/counting/radix/shell)
-  - Dataset presets + custom input
-  - Playback + timeline + stats + complexity + code panel
-  - Side-by-side comparison mode and benchmark chart
-  - Save/share run, PNG/GIF/video export, AI tutor integration
+  - Upgraded to advanced interactive architecture with modular sorting engine files:
+    - `modules/sorting/sortingVisualizer.js`
+    - `modules/sorting/sortingAlgorithms.js`
+    - `modules/sorting/sortingUtils.js`
+    - helper utilities (`animation.js`, `statsTracker.js`, `stepTracker.js`, `pseudocodeHighlighter.js`)
+  - Core algorithms confirmed: Bubble, Selection, Insertion, Merge, Quick, Heap (+ optional Shell, Counting)
+  - Professional animation/feedback system: compare/swap/overwrite/pivot step types, pointer tags (i/j/pivot), smooth bar transitions, swap motion effect, sorted wave confirmation
+  - Advanced controls: algorithm dropdown, size slider (10–100), speed slider (slow↔fast), Generate/Start/Pause/Resume/Reset
+  - Real-time educational panels: step tracker, dynamic stats (comparisons/swaps/execution time), pseudocode line highlighting, algorithm complexity info panel
+  - Labels auto-hide above 30 bars; optional audio feedback toggle implemented
 - Graph module:
   - Graph generation + algorithms (BFS/DFS/Dijkstra/Bellman/Prim/Kruskal/Topo/Cycle/Bipartite/Components/Union-Find)
   - Debugger watch window with internal state and distance map

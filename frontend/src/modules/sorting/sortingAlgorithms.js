@@ -107,7 +107,7 @@ const selectionSort = (input) => {
         type: "swap",
         indices: [i, min],
         pointers: { i, j: min },
-        line: 6,
+        line: 5,
         description: `Swap index ${i} with min index ${min}`,
         sorted: [...sortedIndices],
       });
