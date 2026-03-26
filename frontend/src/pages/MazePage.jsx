@@ -69,7 +69,7 @@ export default function MazePage() {
         module: "maze",
         algorithm,
         title: `${meta.label} run`,
-        dataset_config: { rows, cols },
+        dataset_config: { rows, cols, seed },
         steps: maze.steps,
         stats: maze.stats,
         complexity: { time: meta.time, space: meta.space },

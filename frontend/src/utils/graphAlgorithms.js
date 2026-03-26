@@ -2,6 +2,16 @@ import { graphMeta } from "@/data/algorithmMeta";
 
 const edgeId = (a, b) => `${Math.min(a, b)}-${Math.max(a, b)}`;
 
+const createRandom = (seed = Date.now()) => {
+  let t = seed;
+  return () => {
+    t += 0x6d2b79f5;
+    let r = Math.imul(t ^ (t >>> 15), t | 1);
+    r ^= r + Math.imul(r ^ (r >>> 7), r | 61);
+    return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+  };
+};
+
 const makeStep = ({ action, visited, current, frontier, distances, activeEdges, stats, internalState }) => ({
   action,
   visited: [...visited],
@@ -18,7 +28,8 @@ export const graphAlgorithmOptions = Object.keys(graphMeta).map((key) => ({
   label: graphMeta[key].label,
 }));
 
-export const generateGraph = ({ nodeCount = 8, density = 0.35 }) => {
+export const generateGraph = ({ nodeCount = 8, density = 0.35, seed = Date.now() }) => {
+  const rand = createRandom(seed);
   const nodes = Array.from({ length: nodeCount }, (_, index) => {
     const angle = (Math.PI * 2 * index) / nodeCount;
     return {
@@ -31,12 +42,12 @@ export const generateGraph = ({ nodeCount = 8, density = 0.35 }) => {
   const edges = [];
   for (let i = 0; i < nodeCount; i += 1) {
     for (let j = i + 1; j < nodeCount; j += 1) {
-      if (Math.random() < density) {
+      if (rand() < density) {
         edges.push({
           id: edgeId(i, j),
           source: String(i),
           target: String(j),
-          weight: Math.floor(Math.random() * 9) + 1,
+          weight: Math.floor(rand() * 9) + 1,
         });
       }
     }

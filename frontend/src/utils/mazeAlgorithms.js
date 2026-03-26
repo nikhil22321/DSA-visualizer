@@ -5,6 +5,16 @@ export const mazeAlgorithmOptions = Object.keys(mazeMeta).map((key) => ({
   label: mazeMeta[key].label,
 }));
 
+const createRandom = (seed = Date.now()) => {
+  let t = seed;
+  return () => {
+    t += 0x6d2b79f5;
+    let r = Math.imul(t ^ (t >>> 15), t | 1);
+    r ^= r + Math.imul(r ^ (r >>> 7), r | 61);
+    return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+  };
+};
+
 const inBounds = (row, col, rows, cols) => row > 0 && col > 0 && row < rows - 1 && col < cols - 1;
 
 const cloneGrid = (grid) => grid.map((row) => [...row]);
@@ -24,7 +34,7 @@ const recordStep = (steps, grid, action, stats) => {
   });
 };
 
-const backtrackingMaze = (rows, cols) => {
+const backtrackingMaze = (rows, cols, rand) => {
   const grid = createMazeGrid(rows, cols);
   const steps = [];
   const stats = { visitedNodes: 0, executionSteps: 0, comparisons: 0, swaps: 0 };
@@ -58,7 +68,7 @@ const backtrackingMaze = (rows, cols) => {
       continue;
     }
 
-    const next = options[Math.floor(Math.random() * options.length)];
+    const next = options[Math.floor(rand() * options.length)];
     stats.comparisons += 1;
     carve(grid, next.wr, next.wc);
     carve(grid, next.nr, next.nc);
@@ -76,7 +86,7 @@ const backtrackingMaze = (rows, cols) => {
   return { steps, finalGrid: grid, stats };
 };
 
-const primMaze = (rows, cols) => {
+const primMaze = (rows, cols, rand) => {
   const grid = createMazeGrid(rows, cols);
   const steps = [];
   const stats = { visitedNodes: 0, executionSteps: 0, comparisons: 0, swaps: 0 };
@@ -102,7 +112,7 @@ const primMaze = (rows, cols) => {
   recordStep(steps, grid, "Seed frontier", stats);
 
   while (frontier.length) {
-    const idx = Math.floor(Math.random() * frontier.length);
+    const idx = Math.floor(rand() * frontier.length);
     const [row, col, parentRow, parentCol] = frontier.splice(idx, 1)[0];
     stats.visitedNodes += 1;
     if (grid[row][col] === 1) {
@@ -125,43 +135,43 @@ const primMaze = (rows, cols) => {
   return { steps, finalGrid: grid, stats };
 };
 
-const divide = (grid, top, left, bottom, right, steps, stats) => {
+const divide = (grid, top, left, bottom, right, steps, stats, rand) => {
   if (bottom - top < 2 || right - left < 2) {
     return;
   }
 
   const horizontal = bottom - top > right - left;
   if (horizontal) {
-    const wallRow = top + 2 * Math.floor(Math.random() * ((bottom - top) / 2)) + 1;
-    const passageCol = left + 2 * Math.floor(Math.random() * ((right - left + 1) / 2));
+    const wallRow = top + 2 * Math.floor(rand() * ((bottom - top) / 2)) + 1;
+    const passageCol = left + 2 * Math.floor(rand() * ((right - left + 1) / 2));
     for (let c = left; c <= right; c += 1) {
       if (c !== passageCol) grid[wallRow][c] = 0;
     }
     stats.swaps += 1;
     recordStep(steps, grid, `Horizontal split at row ${wallRow}`, stats);
-    divide(grid, top, left, wallRow - 1, right, steps, stats);
-    divide(grid, wallRow + 1, left, bottom, right, steps, stats);
+    divide(grid, top, left, wallRow - 1, right, steps, stats, rand);
+    divide(grid, wallRow + 1, left, bottom, right, steps, stats, rand);
   } else {
-    const wallCol = left + 2 * Math.floor(Math.random() * ((right - left) / 2)) + 1;
-    const passageRow = top + 2 * Math.floor(Math.random() * ((bottom - top + 1) / 2));
+    const wallCol = left + 2 * Math.floor(rand() * ((right - left) / 2)) + 1;
+    const passageRow = top + 2 * Math.floor(rand() * ((bottom - top + 1) / 2));
     for (let r = top; r <= bottom; r += 1) {
       if (r !== passageRow) grid[r][wallCol] = 0;
     }
     stats.swaps += 1;
     recordStep(steps, grid, `Vertical split at col ${wallCol}`, stats);
-    divide(grid, top, left, bottom, wallCol - 1, steps, stats);
-    divide(grid, top, wallCol + 1, bottom, right, steps, stats);
+    divide(grid, top, left, bottom, wallCol - 1, steps, stats, rand);
+    divide(grid, top, wallCol + 1, bottom, right, steps, stats, rand);
   }
 };
 
-const recursiveDivisionMaze = (rows, cols) => {
+const recursiveDivisionMaze = (rows, cols, rand) => {
   const grid = Array.from({ length: rows }, (_, row) =>
     Array.from({ length: cols }, (_, col) => (row % 2 === 1 && col % 2 === 1 ? 1 : 0)),
   );
   const steps = [];
   const stats = { visitedNodes: 0, executionSteps: 0, comparisons: 0, swaps: 0 };
   recordStep(steps, grid, "Initialize recursive division board", stats);
-  divide(grid, 1, 1, rows - 2, cols - 2, steps, stats);
+  divide(grid, 1, 1, rows - 2, cols - 2, steps, stats, rand);
   grid[1][1] = 1;
   grid[rows - 2][cols - 2] = 1;
   recordStep(steps, grid, "Division maze complete", stats);
@@ -169,9 +179,10 @@ const recursiveDivisionMaze = (rows, cols) => {
   return { steps, finalGrid: grid, stats };
 };
 
-export const runMazeGenerator = ({ rows = 21, cols = 35, algorithm = "backtracking" }) => {
-  if (algorithm === "prim") return primMaze(rows, cols);
-  if (algorithm === "division") return recursiveDivisionMaze(rows, cols);
-  if (algorithm === "kruskal") return primMaze(rows, cols);
-  return backtrackingMaze(rows, cols);
+export const runMazeGenerator = ({ rows = 21, cols = 35, algorithm = "backtracking", seed = Date.now() }) => {
+  const rand = createRandom(seed);
+  if (algorithm === "prim") return primMaze(rows, cols, rand);
+  if (algorithm === "division") return recursiveDivisionMaze(rows, cols, rand);
+  if (algorithm === "kruskal") return primMaze(rows, cols, rand);
+  return backtrackingMaze(rows, cols, rand);
 };

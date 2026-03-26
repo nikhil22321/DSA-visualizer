@@ -66,7 +66,7 @@ export default function GraphPage() {
         module: "graph",
         algorithm,
         title: `${meta.label} run`,
-        dataset_config: { nodeCount, density, graph },
+        dataset_config: { nodeCount, density, seed: graphSeed, graph },
         steps: run.steps,
         stats: run.stats,
         complexity: { time: meta.time, space: meta.space },

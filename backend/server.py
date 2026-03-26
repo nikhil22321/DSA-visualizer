@@ -277,7 +277,16 @@ async def tutor_history(session_id: str) -> Dict[str, Any]:
 @api_router.post("/recommendation", response_model=RecommendationResponse)
 async def recommendation(payload: RecommendationRequest) -> RecommendationResponse:
     n = payload.input_size
-    input_type = payload.input_type.lower()
+    input_type = payload.input_type.lower().replace("-", " ").replace("_", " ").strip()
+    normalized_presets = {
+        "nearly": "nearly sorted",
+        "nearly sorted": "nearly sorted",
+        "few unique": "few unique",
+        "fewunique": "few unique",
+        "random": "random",
+        "reverse": "reverse",
+    }
+    input_type = normalized_presets.get(input_type, input_type)
 
     if payload.domain == "sorting":
         if n <= 32:
