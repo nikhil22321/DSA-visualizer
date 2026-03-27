@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Literal, Optional
 from uuid import uuid4
 
 from dotenv import load_dotenv
-from emergentintegrations.llm.chat import LlmChat, UserMessage
+# from emergentintegrations.llm.chat import LlmChat, UserMessage
 from fastapi import APIRouter, FastAPI, HTTPException, Query
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, ConfigDict, Field
@@ -166,16 +166,12 @@ async def ai_tutor(payload: TutorRequest) -> TutorResponse:
         "and what the learner should watch next."
     )
 
-    provider = "openai"
-    model = "gpt-5.2"
-    try:
-        chat = LlmChat(
-            api_key=llm_key,
-            session_id=session_id,
-            system_message=system_message,
-        ).with_model(provider, model)
+    provider = "fallback"
+    model = "deterministic-template"
 
-        explanation = await chat.send_message(UserMessage(text=prompt))
+    try:
+        explanation = fallback_tutor_message(payload)
+
         await db.tutor_chats.insert_one(
             {
                 "id": str(uuid4()),
