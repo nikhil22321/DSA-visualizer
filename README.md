@@ -139,11 +139,15 @@ flowchart LR
 Replace the placeholders below with your final product images before publishing widely.
 
 ```md
-![Dashboard](./docs/screenshots/dashboard.png)
-![Sorting Module](./docs/screenshots/sorting-module.png)
-![Pathfinding Module](./docs/screenshots/pathfinding-module.png)
-![Graph Module](./docs/screenshots/graph-module.png)
-![Tree Module](./docs/screenshots/tree-module.png)
+![Dashboard](./screenshots/dashboard.png)
+![Sorting Module](./screenshots/sorting-module.png)
+![Pathfinding Module](./screenshots/pathfinding-module.png)
+![Graph Module](./screenshots/graph-module.png)
+![Tree Module](./screenshots/tree-module.png)
+![Linked List Module](./screenshots/linked_list-module.png)
+![Stack Module](./screenshots/stack-module.png)
+![Queue Module](./screenshots/queue-module.png)
+
 ```
 
 ## ⚙️ How To Run Locally
