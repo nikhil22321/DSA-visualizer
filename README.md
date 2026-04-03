@@ -154,9 +154,7 @@ Replace the placeholders below with your final product images before publishing 
 <p align="center">
   <img src="./screenshots/dashboard.png" width="90%" />
 </p>
-<p align="center">
-  <b>Dashboard Overview</b>
-</p>
+<p align="center"><b>Dashboard Overview</b></p>
 
 ---
 
@@ -165,9 +163,10 @@ Replace the placeholders below with your final product images before publishing 
   <img src="./screenshots/sorting-module.png" width="45%" />
   <img src="./screenshots/pathfinding-module.png" width="45%" />
 </p>
+
 <p align="center">
-  <b>Sorting Visualizer</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <b>Pathfinding Visualizer</b>
+  <span style="display:inline-block; width:45%;"><b>Sorting Visualizer</b></span>
+  <span style="display:inline-block; width:45%;"><b>Pathfinding Visualizer</b></span>
 </p>
 
 ---
@@ -177,9 +176,10 @@ Replace the placeholders below with your final product images before publishing 
   <img src="./screenshots/graph-module.png" width="45%" />
   <img src="./screenshots/tree-module.png" width="45%" />
 </p>
+
 <p align="center">
-  <b>Graph Visualizer</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <b>Tree Visualizer</b>
+  <span style="display:inline-block; width:45%;"><b>Graph Visualizer</b></span>
+  <span style="display:inline-block; width:45%;"><b>Tree Visualizer</b></span>
 </p>
 
 ---
@@ -190,13 +190,12 @@ Replace the placeholders below with your final product images before publishing 
   <img src="./screenshots/stack-module.png" width="30%" />
   <img src="./screenshots/queue-module.png" width="30%" />
 </p>
-<p align="center">
-  <b>Linked List</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <b>Stack</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <b>Queue</b>
-</p>
 
-```
+<p align="center">
+  <span style="display:inline-block; width:30%;"><b>Linked List</b></span>
+  <span style="display:inline-block; width:30%;"><b>Stack</b></span>
+  <span style="display:inline-block; width:30%;"><b>Queue</b></span>
+</p>
 
 ## ⚙️ How To Run Locally
 ### 1. Clone the repository
