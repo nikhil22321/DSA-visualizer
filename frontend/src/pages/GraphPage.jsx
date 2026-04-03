@@ -14,7 +14,7 @@ import {
   Trash2,
 } from "lucide-react";
 
-import { AITutorDrawer } from "@/components/common/AITutorDrawer";
+import { StepGuideDrawer } from "@/components/common/StepGuideDrawer";
 import { PageMotionWrapper } from "@/components/common/PageMotionWrapper";
 import { TimelineSlider } from "@/components/common/TimelineSlider";
 import { GraphCanvas } from "@/components/visuals/GraphCanvas";
@@ -364,7 +364,7 @@ export default function GraphPage() {
               >
                 <Download className="h-4 w-4" /> Export PNG
               </Button>
-              <AITutorDrawer
+              <StepGuideDrawer
                 algorithm={algorithm.toUpperCase()}
                 currentStep={stepIndex}
                 action={mergedStep.description}

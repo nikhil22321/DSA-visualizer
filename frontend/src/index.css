@@ -33,6 +33,36 @@
     --radius: 1rem;
   }
 
+  :root[data-accent="emerald"] {
+    --primary: 160 84% 39%;
+    --ring: 160 84% 39%;
+    --chart-1: 160 84% 39%;
+    --chart-2: 192 91% 36%;
+    --chart-3: 151 55% 31%;
+    --chart-4: 47 96% 53%;
+    --chart-5: 221 83% 53%;
+  }
+
+  :root[data-accent="amber"] {
+    --primary: 32 95% 44%;
+    --ring: 32 95% 44%;
+    --chart-1: 32 95% 44%;
+    --chart-2: 14 86% 55%;
+    --chart-3: 45 93% 47%;
+    --chart-4: 221 83% 53%;
+    --chart-5: 173 58% 39%;
+  }
+
+  :root[data-accent="rose"] {
+    --primary: 347 77% 50%;
+    --ring: 347 77% 50%;
+    --chart-1: 347 77% 50%;
+    --chart-2: 262 83% 58%;
+    --chart-3: 221 83% 53%;
+    --chart-4: 24 95% 53%;
+    --chart-5: 173 58% 39%;
+  }
+
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -99,6 +129,7 @@
     -moz-osx-font-smoothing: grayscale;
     background-image: radial-gradient(circle at 80% 10%, hsl(var(--primary) / 0.08), transparent 35%),
       radial-gradient(circle at 20% 90%, hsl(var(--chart-2) / 0.1), transparent 30%);
+    background-attachment: fixed;
   }
 
   .hacker body,
@@ -125,10 +156,90 @@
 }
 
 @layer utilities {
+  @keyframes floatDrift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(18px, -16px, 0) scale(1.05);
+    }
+  }
+
+  @keyframes pulseGlow {
+    0%,
+    100% {
+      opacity: 0.45;
+    }
+    50% {
+      opacity: 0.9;
+    }
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   .visual-grid {
     background-image: linear-gradient(to right, hsl(var(--border) / 0.25) 1px, transparent 1px),
       linear-gradient(to bottom, hsl(var(--border) / 0.25) 1px, transparent 1px);
     background-size: 24px 24px;
+  }
+
+  .dashboard-grid {
+    background-image: linear-gradient(to right, hsl(var(--border) / 0.14) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--border) / 0.14) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .dashboard-panel {
+    @apply border border-border/60 bg-card/80 backdrop-blur-xl;
+    box-shadow: 0 20px 45px hsl(var(--foreground) / 0.06);
+  }
+
+  .dashboard-card-hover {
+    transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  }
+
+  .dashboard-card-hover:hover {
+    transform: translateY(-4px);
+    border-color: hsl(var(--primary) / 0.32);
+    box-shadow: 0 24px 48px hsl(var(--foreground) / 0.08);
+  }
+
+  .dashboard-orbit {
+    animation: floatDrift 14s ease-in-out infinite;
+  }
+
+  .dashboard-pulse {
+    animation: pulseGlow 5.2s ease-in-out infinite;
+  }
+
+  .dashboard-fade-up {
+    animation: fadeUp 0.55s ease-out both;
+  }
+
+  .accent-swatch-blue {
+    background: linear-gradient(135deg, hsl(221 83% 53%), hsl(197 88% 46%));
+  }
+
+  .accent-swatch-emerald {
+    background: linear-gradient(135deg, hsl(160 84% 39%), hsl(192 91% 36%));
+  }
+
+  .accent-swatch-amber {
+    background: linear-gradient(135deg, hsl(32 95% 44%), hsl(14 86% 55%));
+  }
+
+  .accent-swatch-rose {
+    background: linear-gradient(135deg, hsl(347 77% 50%), hsl(262 83% 58%));
   }
 
   @keyframes graphFlow {

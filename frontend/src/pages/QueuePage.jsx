@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowDown, ArrowUp, Search, Trash2 } from "lucide-react";
 
-import { AITutorDrawer } from "@/components/common/AITutorDrawer";
+import { StepGuideDrawer } from "@/components/common/StepGuideDrawer";
 import { CodePanel } from "@/components/common/CodePanel";
 import { ControlCluster } from "@/components/common/ControlCluster";
 import { PageMotionWrapper } from "@/components/common/PageMotionWrapper";
@@ -209,7 +209,7 @@ export default function QueuePage() {
                 Queue, Circular Queue, Deque, Priority Queue with full operation controls.
               </p>
             </div>
-            <AITutorDrawer
+            <StepGuideDrawer
               algorithm={`${queueType} queue`}
               currentStep={playback.currentStep}
               action={step.action}

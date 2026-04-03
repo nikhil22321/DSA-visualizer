@@ -135,6 +135,91 @@ const primMaze = (rows, cols, rand) => {
   return { steps, finalGrid: grid, stats };
 };
 
+const kruskalMaze = (rows, cols, rand) => {
+  const grid = createMazeGrid(rows, cols);
+  const steps = [];
+  const stats = { visitedNodes: 0, executionSteps: 0, comparisons: 0, swaps: 0 };
+  const cells = [];
+  const parent = {};
+
+  for (let row = 1; row < rows; row += 2) {
+    for (let col = 1; col < cols; col += 2) {
+      const key = `${row},${col}`;
+      parent[key] = key;
+      cells.push({ row, col, key });
+      carve(grid, row, col);
+    }
+  }
+
+  const find = (key) => {
+    if (parent[key] !== key) {
+      parent[key] = find(parent[key]);
+    }
+    return parent[key];
+  };
+
+  const union = (leftKey, rightKey) => {
+    const leftRoot = find(leftKey);
+    const rightRoot = find(rightKey);
+    if (leftRoot === rightRoot) {
+      return false;
+    }
+    parent[rightRoot] = leftRoot;
+    return true;
+  };
+
+  const edges = [];
+  cells.forEach(({ row, col, key }) => {
+    if (row + 2 < rows) {
+      edges.push({
+        leftKey: key,
+        rightKey: `${row + 2},${col}`,
+        wallRow: row + 1,
+        wallCol: col,
+        nextRow: row + 2,
+        nextCol: col,
+        weight: rand(),
+      });
+    }
+    if (col + 2 < cols) {
+      edges.push({
+        leftKey: key,
+        rightKey: `${row},${col + 2}`,
+        wallRow: row,
+        wallCol: col + 1,
+        nextRow: row,
+        nextCol: col + 2,
+        weight: rand(),
+      });
+    }
+  });
+
+  edges.sort((left, right) => left.weight - right.weight);
+  recordStep(steps, grid, "Initialize Kruskal cell sets", stats);
+
+  edges.forEach((edge, index) => {
+    stats.comparisons += 1;
+    stats.visitedNodes += 1;
+
+    if (!union(edge.leftKey, edge.rightKey)) {
+      return;
+    }
+
+    carve(grid, edge.wallRow, edge.wallCol);
+    stats.swaps += 1;
+
+    if (index % 2 === 0) {
+      recordStep(steps, grid, `Join sets through ${edge.nextRow},${edge.nextCol}`, stats);
+    }
+  });
+
+  grid[1][1] = 1;
+  grid[rows - 2][cols - 2] = 1;
+  recordStep(steps, grid, "Kruskal maze complete", stats);
+  stats.executionSteps = steps.length;
+  return { steps, finalGrid: grid, stats };
+};
+
 const divide = (grid, top, left, bottom, right, steps, stats, rand) => {
   if (bottom - top < 2 || right - left < 2) {
     return;
@@ -183,6 +268,6 @@ export const runMazeGenerator = ({ rows = 21, cols = 35, algorithm = "backtracki
   const rand = createRandom(seed);
   if (algorithm === "prim") return primMaze(rows, cols, rand);
   if (algorithm === "division") return recursiveDivisionMaze(rows, cols, rand);
-  if (algorithm === "kruskal") return primMaze(rows, cols, rand);
+  if (algorithm === "kruskal") return kruskalMaze(rows, cols, rand);
   return backtrackingMaze(rows, cols, rand);
 };

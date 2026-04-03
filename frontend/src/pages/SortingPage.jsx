@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Pause, Play, RefreshCw, RotateCcw, StepBack, StepForward, Volume2 } from "lucide-react";
 
-import { AITutorDrawer } from "@/components/common/AITutorDrawer";
+import { StepGuideDrawer } from "@/components/common/StepGuideDrawer";
 import { PageMotionWrapper } from "@/components/common/PageMotionWrapper";
 import { TimelineSlider } from "@/components/common/TimelineSlider";
 import { SortingBars } from "@/components/visuals/SortingBars";
@@ -27,6 +27,27 @@ import {
   speedToDelay,
 } from "@/modules/sorting/sortingUtils";
 
+const createIdleSortingStep = (values, description = "Ready") => ({
+  type: "overwrite",
+  indices: [],
+  pointers: {},
+  line: 0,
+  description,
+  pivotIndex: null,
+  sorted: [],
+  array: values,
+  stats: { comparisons: 0, swaps: 0 },
+});
+
+const getSessionTotals = (sessionSteps) => {
+  const finalStep = sessionSteps[sessionSteps.length - 1];
+
+  return {
+    comparisons: finalStep?.stats?.comparisons || 0,
+    swaps: finalStep?.stats?.swaps || 0,
+  };
+};
+
 export default function SortingPage() {
   const [algorithm, setAlgorithm] = useState("quick");
   const [arraySize, setArraySize] = useState(16);
@@ -44,50 +65,77 @@ export default function SortingPage() {
   const [comparisonEnabled, setComparisonEnabled] = useState(false);
   const [comparisonAlgorithm, setComparisonAlgorithm] = useState("merge");
   const [comparisonSteps, setComparisonSteps] = useState([]);
-  const [comparisonStepIndex, setComparisonStepIndex] = useState(0);
-  const [comparisonStats, setComparisonStats] = useState({ comparisons: 0, swaps: 0 });
 
   const pauseRef = useRef(false);
   const abortRef = useRef(false);
   const audioRef = useRef(null);
+  const previousArraySizeRef = useRef(arraySize);
 
   const algorithms = useMemo(() => getSortingAlgorithms(), []);
   const algorithmInfo = useMemo(() => getSortingInfo(algorithm), [algorithm]);
-
-  const currentStep =
-    steps[stepIndex] || {
-      type: "overwrite",
-      indices: [],
-      pointers: {},
-      line: 0,
-      description: "Ready",
-      pivotIndex: null,
-      sorted: [],
-      array,
-      stats: { comparisons: 0, swaps: 0 },
-    };
-
-  const stepMessages = useMemo(
-    () => recentStepMessages(steps, stepIndex, 10),
-    [steps, stepIndex],
+  const comparisonInfo = useMemo(() => getSortingInfo(comparisonAlgorithm), [comparisonAlgorithm]);
+  const primaryPreviewSession = useMemo(
+    () => prepareSortingSession(array, algorithm),
+    [array, algorithm],
+  );
+  const comparisonPreviewSession = useMemo(() => {
+    if (!comparisonEnabled) return null;
+    const source = initialRunArray.length ? initialRunArray : array;
+    return prepareSortingSession(source, comparisonAlgorithm);
+  }, [comparisonEnabled, comparisonAlgorithm, initialRunArray, array]);
+  const idlePrimaryStep = useMemo(() => createIdleSortingStep(array), [array]);
+  const idleComparisonStep = useMemo(
+    () => createIdleSortingStep(initialRunArray.length ? initialRunArray : array, "Ready to compare"),
+    [array, initialRunArray],
   );
 
-  const pseudocode = useMemo(
+  const activeSteps = useMemo(
+    () => (steps.length ? steps : (primaryPreviewSession?.steps || [])),
+    [steps, primaryPreviewSession],
+  );
+  const lastStepIndex = Math.max(activeSteps.length - 1, 0);
+  const displayStepIndex = Math.min(stepIndex, lastStepIndex);
+  const activeComparisonSteps = useMemo(
+    () => (comparisonSteps.length ? comparisonSteps : (comparisonPreviewSession?.steps || [])),
+    [comparisonSteps, comparisonPreviewSession],
+  );
+  const comparisonDisplayIndex = Math.min(displayStepIndex, Math.max(activeComparisonSteps.length - 1, 0));
+  const currentStep = activeSteps[displayStepIndex] || idlePrimaryStep;
+  const comparisonStep = activeComparisonSteps[comparisonDisplayIndex] || idleComparisonStep;
+  const primaryTotals = useMemo(() => getSessionTotals(activeSteps), [activeSteps]);
+  const comparisonTotals = useMemo(() => getSessionTotals(activeComparisonSteps), [activeComparisonSteps]);
+  const primaryPseudocode = useMemo(
     () => highlightedPseudocode(algorithmInfo.pseudocode, currentStep.line),
     [algorithmInfo.pseudocode, currentStep.line],
   );
+  const comparisonPseudocode = useMemo(
+    () => highlightedPseudocode(comparisonInfo.pseudocode, comparisonStep.line),
+    [comparisonInfo.pseudocode, comparisonStep.line],
+  );
+  const comparisonStepMessages = useMemo(
+    () => recentStepMessages(activeComparisonSteps, comparisonDisplayIndex, 10),
+    [activeComparisonSteps, comparisonDisplayIndex],
+  );
 
-  const comparisonInfo = useMemo(() => getSortingInfo(comparisonAlgorithm), [comparisonAlgorithm]);
-  const comparisonPreview = useMemo(() => {
-    if (!comparisonEnabled) return null;
-    const base = initialRunArray.length ? initialRunArray : array;
-    return prepareSortingSession([...base], comparisonAlgorithm);
-  }, [comparisonEnabled, comparisonAlgorithm, initialRunArray, array]);
-  const comparisonStep =
-    comparisonSteps[Math.min(stepIndex, Math.max(comparisonSteps.length - 1, 0))] ||
-    comparisonPreview?.steps?.[Math.min(stepIndex, Math.max((comparisonPreview?.steps?.length || 1) - 1, 0))] ||
-    comparisonPreview?.steps?.[0] ||
-    currentStep;
+  const stepMessages = useMemo(
+    () => recentStepMessages(activeSteps, displayStepIndex, 10),
+    [activeSteps, displayStepIndex],
+  );
+  const primaryDisplayStats = useMemo(
+    () => ({
+      comparisons: currentStep?.stats?.comparisons || 0,
+      swaps: currentStep?.stats?.swaps || 0,
+      executionTimeMs: steps.length && displayStepIndex >= lastStepIndex ? stats.executionTimeMs : 0,
+    }),
+    [currentStep, steps.length, displayStepIndex, lastStepIndex, stats.executionTimeMs],
+  );
+  const comparisonDisplayStats = useMemo(
+    () => ({
+      comparisons: comparisonStep?.stats?.comparisons || 0,
+      swaps: comparisonStep?.stats?.swaps || 0,
+    }),
+    [comparisonStep],
+  );
 
   const playTone = (step) => {
     if (!audioEnabled || !["compare", "swap"].includes(step.type)) return;
@@ -124,8 +172,6 @@ export default function SortingPage() {
     setStats(initialStats);
     setArray(nextArray);
     setComparisonSteps([]);
-    setComparisonStepIndex(0);
-    setComparisonStats({ comparisons: 0, swaps: 0 });
   };
 
   const generateArray = () => {
@@ -136,25 +182,34 @@ export default function SortingPage() {
   };
 
   useEffect(() => {
-    if (!isRunning) {
-      const next = generateSortingArray(arraySize);
-      setArray(next);
-      setInitialRunArray(next);
+    if (isRunning || previousArraySizeRef.current === arraySize) {
+      previousArraySizeRef.current = arraySize;
+      return;
     }
-  }, [arraySize]);
 
-  const runSessionSteps = async ({ primarySteps, compareSteps = [], sourceLength }) => {
+    previousArraySizeRef.current = arraySize;
+    const next = generateSortingArray(arraySize);
+    setArray(next);
+    setInitialRunArray(next);
+  }, [arraySize, isRunning]);
+
+  useEffect(() => {
+    if (!steps.length) {
+      setStepIndex(0);
+      setIsCompleted(false);
+      setWaveIndex(-1);
+      setStats(initialStats);
+    }
+  }, [algorithm, array, comparisonAlgorithm, comparisonEnabled, steps.length]);
+
+  const runSessionSteps = async ({ primarySteps, sourceLength }) => {
     setStepIndex(0);
-    setComparisonStepIndex(0);
     const result = await executeSortingSession({
       steps: primarySteps,
       onStep: (step, index, elapsedMs) => {
         setStepIndex(index);
         setArray(step.array);
         setStats(statsFromStep(step, elapsedMs));
-        if (compareSteps.length) {
-          setComparisonStepIndex(Math.min(index, compareSteps.length - 1));
-        }
       },
       getDelay: () => speedToDelay(speed),
       pauseRef,
@@ -196,20 +251,28 @@ export default function SortingPage() {
     setWaveIndex(-1);
     setSteps(session.steps);
     setComparisonSteps(compareSession?.steps || []);
-    setComparisonStats(compareSession?.stats || { comparisons: 0, swaps: 0 });
     setStats(initialStats);
     setIsRunning(true);
 
     await nextFrame();
     await runSessionSteps({
       primarySteps: session.steps,
-      compareSteps: compareSession?.steps || [],
       sourceLength: sourceArray.length,
     });
   };
 
   const playbackSorting = async () => {
-    if (isRunning || !steps.length) return;
+    const sourceSteps = activeSteps;
+    if (isRunning || !sourceSteps.length) return;
+
+    if (!steps.length) {
+      setInitialRunArray([...array]);
+      setSteps(sourceSteps);
+      if (comparisonEnabled && !comparisonSteps.length) {
+        setComparisonSteps(activeComparisonSteps);
+      }
+    }
+
     abortRef.current = false;
     pauseRef.current = false;
     setIsPaused(false);
@@ -217,8 +280,7 @@ export default function SortingPage() {
     setWaveIndex(-1);
     setIsRunning(true);
     await runSessionSteps({
-      primarySteps: steps,
-      compareSteps: comparisonSteps,
+      primarySteps: sourceSteps,
       sourceLength: initialRunArray.length || array.length,
     });
   };
@@ -238,6 +300,36 @@ export default function SortingPage() {
     const fallback = initialRunArray.length ? [...initialRunArray] : generateSortingArray(arraySize);
     resetState(fallback);
     toast.info("Sorting reset.");
+  };
+
+  const jumpToStep = (targetIndex) => {
+    const sourceSteps = activeSteps;
+    if (!sourceSteps.length) return;
+
+    const boundedIndex = Math.max(0, Math.min(targetIndex, lastStepIndex));
+    const targetStep = sourceSteps[boundedIndex];
+    const shouldMarkComplete = boundedIndex === lastStepIndex;
+
+    if (!steps.length) {
+      setInitialRunArray([...array]);
+      setSteps(sourceSteps);
+      if (comparisonEnabled && !comparisonSteps.length) {
+        setComparisonSteps(activeComparisonSteps);
+      }
+    }
+
+    abortRef.current = true;
+    pauseRef.current = false;
+    setIsRunning(false);
+    setIsPaused(false);
+    setWaveIndex(-1);
+    setStepIndex(boundedIndex);
+    setArray(targetStep.array);
+    setStats({
+      ...statsFromStep(targetStep, 0),
+      executionTimeMs: shouldMarkComplete ? stats.executionTimeMs : 0,
+    });
+    setIsCompleted(shouldMarkComplete);
   };
 
   return (
@@ -330,9 +422,30 @@ export default function SortingPage() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="rounded-xl border border-border/60 bg-background/70 p-3 text-sm" data-testid="sorting-comparison-summary">
-                <p><strong>{algorithmInfo.label}</strong>: C {stats.comparisons} | S {stats.swaps}</p>
-                <p className="mt-1"><strong>{comparisonInfo.label}</strong>: C {comparisonStats.comparisons || comparisonPreview?.stats?.comparisons || 0} | S {comparisonStats.swaps || comparisonPreview?.stats?.swaps || 0}</p>
+              <div className="rounded-2xl border border-border/60 bg-background/70 p-3" data-testid="sorting-comparison-summary">
+                <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Dual Algorithm View</p>
+                <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <div className="rounded-xl border border-primary/20 bg-primary/5 p-3">
+                    <p className="text-xs uppercase tracking-[0.18em] text-primary/80">Primary</p>
+                    <p className="mt-1 text-sm font-semibold">{algorithmInfo.label}</p>
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      Live: C {primaryDisplayStats.comparisons} | S {primaryDisplayStats.swaps}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Total: C {primaryTotals.comparisons} | S {primaryTotals.swaps}
+                    </p>
+                  </div>
+                  <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-3">
+                    <p className="text-xs uppercase tracking-[0.18em] text-emerald-600">Comparison</p>
+                    <p className="mt-1 text-sm font-semibold">{comparisonInfo.label}</p>
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      Live: C {comparisonDisplayStats.comparisons} | S {comparisonDisplayStats.swaps}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Total: C {comparisonTotals.comparisons} | S {comparisonTotals.swaps}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -353,18 +466,18 @@ export default function SortingPage() {
             <Button type="button" variant="ghost" onClick={resetSorting} data-testid="sorting-reset-button">
               <RotateCcw className="h-4 w-4" /> Reset
             </Button>
-            <Button type="button" variant="outline" onClick={playbackSorting} disabled={isRunning || !steps.length} data-testid="sorting-playback-button">
+            <Button type="button" variant="outline" onClick={playbackSorting} disabled={isRunning || !activeSteps.length} data-testid="sorting-playback-button">
               <RefreshCw className="h-4 w-4" /> Playback
             </Button>
-            <Button type="button" variant="outline" onClick={() => setStepIndex((prev) => Math.max(0, prev - 1))} disabled={isRunning || !steps.length} data-testid="sorting-step-back-button">
+            <Button type="button" variant="outline" onClick={() => jumpToStep(displayStepIndex - 1)} disabled={isRunning || !activeSteps.length} data-testid="sorting-step-back-button">
               <StepBack className="h-4 w-4" />
             </Button>
-            <Button type="button" variant="outline" onClick={() => setStepIndex((prev) => Math.min(steps.length - 1, prev + 1))} disabled={isRunning || !steps.length} data-testid="sorting-step-forward-button">
+            <Button type="button" variant="outline" onClick={() => jumpToStep(displayStepIndex + 1)} disabled={isRunning || !activeSteps.length} data-testid="sorting-step-forward-button">
               <StepForward className="h-4 w-4" />
             </Button>
-            <AITutorDrawer
+            <StepGuideDrawer
               algorithm={algorithmInfo.label}
-              currentStep={stepIndex}
+              currentStep={displayStepIndex}
               action={currentStep.description}
               complexity={`${algorithmInfo.average}, ${algorithmInfo.space}`}
               internalState={{ pointers: currentStep.pointers, indices: currentStep.indices }}
@@ -384,9 +497,9 @@ export default function SortingPage() {
             <CardContent className="space-y-4">
               <SortingBars step={currentStep} waveIndex={waveIndex} testId="sorting-advanced-bars" />
               <TimelineSlider
-                currentStep={stepIndex}
-                maxStep={Math.max(steps.length - 1, 0)}
-                onChange={(value) => setStepIndex(value)}
+                currentStep={displayStepIndex}
+                maxStep={lastStepIndex}
+                onChange={jumpToStep}
               />
               {isCompleted && (
                 <p className="rounded-xl border border-green-500/40 bg-green-500/10 px-4 py-3 text-sm font-semibold text-green-600" data-testid="sorting-success-message">
@@ -402,6 +515,9 @@ export default function SortingPage() {
                 <CardTitle className="font-heading text-base" data-testid="sorting-comparison-visual-title">
                   Comparison View: {comparisonInfo.label}
                 </CardTitle>
+                <p className="text-sm text-muted-foreground" data-testid="sorting-comparison-step-description">
+                  {comparisonStep.description}
+                </p>
               </CardHeader>
               <CardContent>
                 <SortingBars step={comparisonStep} waveIndex={-1} testId="sorting-comparison-bars" />
@@ -414,15 +530,48 @@ export default function SortingPage() {
               <CardTitle className="font-heading text-base" data-testid="sorting-step-tracker-title">Step Tracker</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-2" data-testid="sorting-step-tracker-list">
-                {stepMessages.length ? (
-                  stepMessages.map((item) => (
-                    <p key={item.id} className="rounded-lg border border-border/50 bg-background/70 px-3 py-2 text-sm" data-testid={`sorting-step-message-${item.id}`}>
-                      {item.message}
-                    </p>
-                  ))
-                ) : (
-                  <p className="text-sm text-muted-foreground" data-testid="sorting-step-empty">No steps yet. Start sorting.</p>
+              <div
+                className={`grid gap-4 ${comparisonEnabled ? "grid-cols-1 xl:grid-cols-2" : "grid-cols-1"}`}
+                data-testid="sorting-step-tracker-list"
+              >
+                <div>
+                  {comparisonEnabled && (
+                    <p className="mb-2 text-xs uppercase tracking-[0.2em] text-primary/80">Primary timeline</p>
+                  )}
+                  <div className="space-y-2">
+                    {stepMessages.length ? (
+                      stepMessages.map((item) => (
+                        <p key={item.id} className="rounded-lg border border-border/50 bg-background/70 px-3 py-2 text-sm" data-testid={`sorting-step-message-${item.id}`}>
+                          {item.message}
+                        </p>
+                      ))
+                    ) : (
+                      <p className="text-sm text-muted-foreground" data-testid="sorting-step-empty">No steps yet. Start sorting.</p>
+                    )}
+                  </div>
+                </div>
+
+                {comparisonEnabled && (
+                  <div>
+                    <p className="mb-2 text-xs uppercase tracking-[0.2em] text-emerald-600">Comparison timeline</p>
+                    <div className="space-y-2">
+                      {comparisonStepMessages.length ? (
+                        comparisonStepMessages.map((item) => (
+                          <p
+                            key={item.id}
+                            className="rounded-lg border border-border/50 bg-background/70 px-3 py-2 text-sm"
+                            data-testid={`sorting-comparison-step-message-${item.id}`}
+                          >
+                            {item.message}
+                          </p>
+                        ))
+                      ) : (
+                        <p className="text-sm text-muted-foreground" data-testid="sorting-comparison-step-empty">
+                          No comparison steps yet. Start sorting.
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 )}
               </div>
             </CardContent>
@@ -435,16 +584,52 @@ export default function SortingPage() {
               <CardTitle className="font-heading text-base" data-testid="sorting-stats-title">Statistics</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 gap-2">
-                <p className="rounded-lg border border-border/60 bg-background/70 px-3 py-2 text-sm" data-testid="sorting-stats-comparisons">
-                  Comparisons: <strong>{stats.comparisons}</strong>
-                </p>
-                <p className="rounded-lg border border-border/60 bg-background/70 px-3 py-2 text-sm" data-testid="sorting-stats-swaps">
-                  Swaps: <strong>{stats.swaps}</strong>
-                </p>
-                <p className="rounded-lg border border-border/60 bg-background/70 px-3 py-2 text-sm" data-testid="sorting-stats-time">
-                  Execution Time: <strong>{formatExecutionTime(stats.executionTimeMs)}</strong>
-                </p>
+              <div className={`grid gap-3 ${comparisonEnabled ? "grid-cols-1" : "grid-cols-1"}`}>
+                <div className="rounded-xl border border-primary/20 bg-primary/5 p-3" data-testid="sorting-primary-stats-card">
+                  <p className="text-xs uppercase tracking-[0.2em] text-primary/80">Primary</p>
+                  <p className="mt-1 text-sm font-semibold">{algorithmInfo.label}</p>
+                  <div className="mt-3 grid grid-cols-1 gap-2">
+                    <p className="rounded-lg border border-border/60 bg-background/70 px-3 py-2 text-sm" data-testid="sorting-stats-comparisons">
+                      Live Comparisons: <strong>{primaryDisplayStats.comparisons}</strong>
+                    </p>
+                    <p className="rounded-lg border border-border/60 bg-background/70 px-3 py-2 text-sm" data-testid="sorting-stats-swaps">
+                      Live Swaps: <strong>{primaryDisplayStats.swaps}</strong>
+                    </p>
+                    <p className="rounded-lg border border-border/60 bg-background/70 px-3 py-2 text-sm" data-testid="sorting-stats-total-comparisons">
+                      Total Comparisons: <strong>{primaryTotals.comparisons}</strong>
+                    </p>
+                    <p className="rounded-lg border border-border/60 bg-background/70 px-3 py-2 text-sm" data-testid="sorting-stats-total-swaps">
+                      Total Swaps: <strong>{primaryTotals.swaps}</strong>
+                    </p>
+                    <p className="rounded-lg border border-border/60 bg-background/70 px-3 py-2 text-sm" data-testid="sorting-stats-time">
+                      Execution Time: <strong>{formatExecutionTime(primaryDisplayStats.executionTimeMs)}</strong>
+                    </p>
+                  </div>
+                </div>
+
+                {comparisonEnabled && (
+                  <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-3" data-testid="sorting-comparison-stats-card">
+                    <p className="text-xs uppercase tracking-[0.2em] text-emerald-600">Comparison</p>
+                    <p className="mt-1 text-sm font-semibold">{comparisonInfo.label}</p>
+                    <div className="mt-3 grid grid-cols-1 gap-2">
+                      <p className="rounded-lg border border-border/60 bg-background/70 px-3 py-2 text-sm" data-testid="sorting-comparison-live-comparisons">
+                        Live Comparisons: <strong>{comparisonDisplayStats.comparisons}</strong>
+                      </p>
+                      <p className="rounded-lg border border-border/60 bg-background/70 px-3 py-2 text-sm" data-testid="sorting-comparison-live-swaps">
+                        Live Swaps: <strong>{comparisonDisplayStats.swaps}</strong>
+                      </p>
+                      <p className="rounded-lg border border-border/60 bg-background/70 px-3 py-2 text-sm" data-testid="sorting-comparison-total-comparisons">
+                        Total Comparisons: <strong>{comparisonTotals.comparisons}</strong>
+                      </p>
+                      <p className="rounded-lg border border-border/60 bg-background/70 px-3 py-2 text-sm" data-testid="sorting-comparison-total-swaps">
+                        Total Swaps: <strong>{comparisonTotals.swaps}</strong>
+                      </p>
+                      <p className="rounded-lg border border-border/60 bg-background/70 px-3 py-2 text-sm" data-testid="sorting-comparison-step-count">
+                        Captured Steps: <strong>{activeComparisonSteps.length}</strong>
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -454,16 +639,36 @@ export default function SortingPage() {
               <CardTitle className="font-heading text-base" data-testid="sorting-pseudocode-title">Pseudocode</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-1 rounded-xl border border-border/60 bg-background/70 p-3 font-code text-xs" data-testid="sorting-pseudocode-lines">
-                {pseudocode.map((line) => (
-                  <p
-                    key={line.lineNumber}
-                    className={`rounded px-2 py-1 ${line.active ? "bg-primary/20 text-primary" : "text-muted-foreground"}`}
-                    data-testid={`sorting-pseudocode-line-${line.lineNumber}`}
-                  >
-                    {line.lineNumber}. {line.text}
-                  </p>
-                ))}
+              <div className={`grid gap-3 ${comparisonEnabled ? "grid-cols-1 xl:grid-cols-2" : "grid-cols-1"}`}>
+                <div className="space-y-1 rounded-xl border border-border/60 bg-background/70 p-3 font-code text-xs" data-testid="sorting-pseudocode-lines">
+                  {comparisonEnabled && (
+                    <p className="mb-2 text-[11px] uppercase tracking-[0.18em] text-primary/80">{algorithmInfo.label}</p>
+                  )}
+                  {primaryPseudocode.map((line) => (
+                    <p
+                      key={line.lineNumber}
+                      className={`rounded px-2 py-1 ${line.active ? "bg-primary/20 text-primary" : "text-muted-foreground"}`}
+                      data-testid={`sorting-pseudocode-line-${line.lineNumber}`}
+                    >
+                      {line.lineNumber}. {line.text}
+                    </p>
+                  ))}
+                </div>
+
+                {comparisonEnabled && (
+                  <div className="space-y-1 rounded-xl border border-border/60 bg-background/70 p-3 font-code text-xs" data-testid="sorting-comparison-pseudocode-lines">
+                    <p className="mb-2 text-[11px] uppercase tracking-[0.18em] text-emerald-600">{comparisonInfo.label}</p>
+                    {comparisonPseudocode.map((line) => (
+                      <p
+                        key={line.lineNumber}
+                        className={`rounded px-2 py-1 ${line.active ? "bg-emerald-500/20 text-emerald-700" : "text-muted-foreground"}`}
+                        data-testid={`sorting-comparison-pseudocode-line-${line.lineNumber}`}
+                      >
+                        {line.lineNumber}. {line.text}
+                      </p>
+                    ))}
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -472,12 +677,28 @@ export default function SortingPage() {
             <CardHeader>
               <CardTitle className="font-heading text-base" data-testid="sorting-algorithm-info-title">Algorithm Information</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-2 text-sm">
-              <p data-testid="sorting-info-name"><strong>Name:</strong> {algorithmInfo.label}</p>
-              <p data-testid="sorting-info-best"><strong>Best Case:</strong> {algorithmInfo.best}</p>
-              <p data-testid="sorting-info-average"><strong>Average Case:</strong> {algorithmInfo.average}</p>
-              <p data-testid="sorting-info-worst"><strong>Worst Case:</strong> {algorithmInfo.worst}</p>
-              <p data-testid="sorting-info-space"><strong>Space Complexity:</strong> {algorithmInfo.space}</p>
+            <CardContent className={`grid gap-3 text-sm ${comparisonEnabled ? "grid-cols-1 xl:grid-cols-2" : "grid-cols-1"}`}>
+              <div className="rounded-xl border border-primary/20 bg-primary/5 p-3">
+                {comparisonEnabled && (
+                  <p className="mb-2 text-xs uppercase tracking-[0.18em] text-primary/80">Primary</p>
+                )}
+                <p data-testid="sorting-info-name"><strong>Name:</strong> {algorithmInfo.label}</p>
+                <p data-testid="sorting-info-best"><strong>Best Case:</strong> {algorithmInfo.best}</p>
+                <p data-testid="sorting-info-average"><strong>Average Case:</strong> {algorithmInfo.average}</p>
+                <p data-testid="sorting-info-worst"><strong>Worst Case:</strong> {algorithmInfo.worst}</p>
+                <p data-testid="sorting-info-space"><strong>Space Complexity:</strong> {algorithmInfo.space}</p>
+              </div>
+
+              {comparisonEnabled && (
+                <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-3">
+                  <p className="mb-2 text-xs uppercase tracking-[0.18em] text-emerald-600">Comparison</p>
+                  <p data-testid="sorting-comparison-info-name"><strong>Name:</strong> {comparisonInfo.label}</p>
+                  <p data-testid="sorting-comparison-info-best"><strong>Best Case:</strong> {comparisonInfo.best}</p>
+                  <p data-testid="sorting-comparison-info-average"><strong>Average Case:</strong> {comparisonInfo.average}</p>
+                  <p data-testid="sorting-comparison-info-worst"><strong>Worst Case:</strong> {comparisonInfo.worst}</p>
+                  <p data-testid="sorting-comparison-info-space"><strong>Space Complexity:</strong> {comparisonInfo.space}</p>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>

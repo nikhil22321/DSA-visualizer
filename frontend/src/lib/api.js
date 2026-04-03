@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API_BASE = `${BACKEND_URL}/api`;
+const BACKEND_URL = (process.env.REACT_APP_BACKEND_URL || "").trim();
+const API_BASE = BACKEND_URL ? `${BACKEND_URL}/api` : "/api";
 
 export const api = axios.create({
   baseURL: API_BASE,
@@ -13,8 +13,8 @@ export const getHealth = async () => {
   return data;
 };
 
-export const askTutor = async (payload) => {
-  const { data } = await api.post("/ai/tutor", payload);
+export const getStepGuide = async (payload) => {
+  const { data } = await api.post("/guide/explain", payload);
   return data;
 };
 

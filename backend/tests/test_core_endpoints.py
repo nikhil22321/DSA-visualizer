@@ -1,4 +1,4 @@
-"""Core API regression tests: health, runs, share token, and AI tutor."""
+"""Core API regression tests: health, runs, share token, and step guidance."""
 
 
 def test_health_endpoint(api_client, api_base):
@@ -50,7 +50,7 @@ def test_shared_run_not_found_returns_404(api_client, api_base):
     assert data["detail"] == "Shared run not found"
 
 
-def test_ai_tutor_response_shape(api_client, api_base):
+def test_step_guide_response_shape(api_client, api_base):
     payload = {
         "algorithm": "Quick Sort",
         "current_step": 4,
@@ -60,12 +60,11 @@ def test_ai_tutor_response_shape(api_client, api_base):
         "mode": "learning",
     }
 
-    response = api_client.post(f"{api_base}/ai/tutor", json=payload, timeout=60)
+    response = api_client.post(f"{api_base}/guide/explain", json=payload, timeout=60)
 
     assert response.status_code == 200
     data = response.json()
     assert isinstance(data["session_id"], str) and len(data["session_id"]) > 0
     assert isinstance(data["explanation"], str) and len(data["explanation"].strip()) > 0
-    assert data["provider"] in {"openai", "fallback"}
-    assert isinstance(data["model"], str) and len(data["model"]) > 0
     assert isinstance(data["timestamp"], str)
+    assert isinstance(data["suggested_questions"], list)

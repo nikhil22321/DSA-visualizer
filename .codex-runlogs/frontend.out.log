@@ -1,0 +1,458 @@
+
+> frontend@0.1.0 start
+> craco start
+
+Starting the development server...
+
+Compiled successfully!
+
+You can now view frontend in the browser.
+
+  Local:            http://localhost:3000
+  On Your Network:  http://192.168.1.5:3000
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Failed to compile.
+
+Attempted import error: '@/pages/TreePage' does not contain a default export (imported as 'TreePage').
+[1m[31mERROR[39m[22m in [1m./src/App.js[39m[22m [1m[32m91:42-50[39m[22m
+[1mexport 'default' (imported as 'TreePage') was [1m[31mnot found[39m[22m[1m in '@/pages/TreePage' [1m[31m(module has no exports)[39m[22m[1m[39m[22m
+
+webpack compiled with [1m[31m1 error[39m[22m
+Compiling...
+Failed to compile.
+
+[eslint] 
+src\pages\TreePage.jsx
+Syntax error: Unexpected token (550:0) (550:undefined)
+[1m[31mERROR[39m[22m in [1m./src/pages/TreePage.jsx[39m[22m
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\src\pages\TreePage.jsx: Unexpected token (550:0)
+
+[0m [90m 548 |[39m     toast[33m.[39msuccess([32m`Inserted ${value}`[39m)[33m;[39m
+ [90m 549 |[39m   }[33m;[39m
+[31m[1m>[22m[39m[90m 550 |[39m
+ [90m     |[39m [31m[1m^[22m[39m[0m
+    at constructor (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:365:19)
+    at FlowParserMixin.raise (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:6599:19)
+    at FlowParserMixin.unexpected (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:6619:16)
+    at FlowParserMixin.parseExprAtom (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:11442:22)
+    at FlowParserMixin.parseExprAtom (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:4764:20)
+    at FlowParserMixin.parseExprSubscripts (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:11081:23)
+    at FlowParserMixin.parseUpdate (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:11066:21)
+    at FlowParserMixin.parseMaybeUnary (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:11046:23)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10899:61)
+    at FlowParserMixin.parseExprOps (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10904:23)
+    at FlowParserMixin.parseMaybeConditional (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10881:23)
+    at FlowParserMixin.parseMaybeAssign (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10831:21)
+    at FlowParserMixin.parseMaybeAssign (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:3549:18)
+    at FlowParserMixin.parseExpressionBase (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10784:23)
+    at D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10780:39
+    at FlowParserMixin.allowInAnd (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12421:16)
+    at FlowParserMixin.parseExpression (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10780:17)
+    at FlowParserMixin.parseStatementContent (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12895:23)
+    at FlowParserMixin.parseStatementLike (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12767:17)
+    at FlowParserMixin.parseStatementLike (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:2918:24)
+    at FlowParserMixin.parseStatementListItem (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12747:17)
+    at FlowParserMixin.parseBlockOrModuleBlockBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13316:61)
+    at FlowParserMixin.parseBlockBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13309:10)
+    at FlowParserMixin.parseBlock (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13297:10)
+    at FlowParserMixin.parseFunctionBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12100:24)
+    at FlowParserMixin.parseFunctionBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:2895:11)
+    at FlowParserMixin.parseFunctionBodyAndFinish (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12086:10)
+    at FlowParserMixin.parseFunctionBodyAndFinish (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:2903:18)
+    at D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13445:12
+    at FlowParserMixin.withSmartMixTopicForbiddingContext (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12403:14)
+    at FlowParserMixin.parseFunction (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13444:10)
+    at FlowParserMixin.parseExportDefaultExpression (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13907:19)
+    at FlowParserMixin.parseExportDefaultExpression (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:2966:18)
+    at FlowParserMixin.parseExport (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13828:25)
+    at FlowParserMixin.parseStatementContent (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12878:27)
+    at FlowParserMixin.parseStatementLike (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12767:17)
+    at FlowParserMixin.parseStatementLike (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:2918:24)
+    at FlowParserMixin.parseModuleItem (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12744:17)
+    at FlowParserMixin.parseBlockOrModuleBlockBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13316:36)
+    at FlowParserMixin.parseBlockBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13309:10)
+    at FlowParserMixin.parseProgram (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12622:10)
+    at FlowParserMixin.parseTopLevel (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12612:25)
+    at FlowParserMixin.parseTopLevel (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:3685:28)
+    at FlowParserMixin.parse (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:14488:25)
+    at parse (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:14522:38)
+    at parser (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\core\lib\parser\index.js:41:34)
+    at parser.next (<anonymous>)
+    at normalizeFile (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\core\lib\transformation\normalize-file.js:64:37)
+    at normalizeFile.next (<anonymous>)
+    at run (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\core\lib\transformation\index.js:22:50)
+
+[1m[31mERROR[39m[22m in [1m[eslint] 
+src\pages\TreePage.jsx
+  Line 550:  Parsing [1m[31merror[39m[22m[1m: [1m[31mUnexpected[39m[22m[1m token (550:0)
+
+[39m[22m
+
+webpack compiled with [1m[31m2 errors[39m[22m
+Compiling...
+Failed to compile.
+
+[eslint] 
+src\pages\TreePage.jsx
+Syntax error: Unexpected token (755:0) (755:undefined)
+[1m[31mERROR[39m[22m in [1m./src/pages/TreePage.jsx[39m[22m
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\src\pages\TreePage.jsx: Unexpected token (755:0)
+
+[0m [90m 753 |[39m     appendSnapshots(snapshots[33m.[39mlength [33m?[39m snapshots [33m:[39m [buildSnapshot({ action[33m:[39m [32m`${kind} traversal`[39m[33m,[39m traversalText[33m:[39m [32m"(empty)"[39m[33m,[39m narrative[33m:[39m [32m"The tree is empty, so the traversal produces no output."[39m[33m,[39m internalState[33m:[39m { mode[33m:[39m [32m"traversal"[39m[33m,[39m traversal[33m:[39m kind } })])[33m;[39m
+ [90m 754 |[39m   }[33m;[39m
+[31m[1m>[22m[39m[90m 755 |[39m
+ [90m     |[39m [31m[1m^[22m[39m[0m
+    at constructor (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:365:19)
+    at FlowParserMixin.raise (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:6599:19)
+    at FlowParserMixin.unexpected (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:6619:16)
+    at FlowParserMixin.parseExprAtom (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:11442:22)
+    at FlowParserMixin.parseExprAtom (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:4764:20)
+    at FlowParserMixin.parseExprSubscripts (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:11081:23)
+    at FlowParserMixin.parseUpdate (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:11066:21)
+    at FlowParserMixin.parseMaybeUnary (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:11046:23)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10899:61)
+    at FlowParserMixin.parseExprOps (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10904:23)
+    at FlowParserMixin.parseMaybeConditional (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10881:23)
+    at FlowParserMixin.parseMaybeAssign (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10831:21)
+    at FlowParserMixin.parseMaybeAssign (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:3549:18)
+    at FlowParserMixin.parseExpressionBase (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10784:23)
+    at D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10780:39
+    at FlowParserMixin.allowInAnd (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12421:16)
+    at FlowParserMixin.parseExpression (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10780:17)
+    at FlowParserMixin.parseStatementContent (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12895:23)
+    at FlowParserMixin.parseStatementLike (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12767:17)
+    at FlowParserMixin.parseStatementLike (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:2918:24)
+    at FlowParserMixin.parseStatementListItem (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12747:17)
+    at FlowParserMixin.parseBlockOrModuleBlockBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13316:61)
+    at FlowParserMixin.parseBlockBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13309:10)
+    at FlowParserMixin.parseBlock (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13297:10)
+    at FlowParserMixin.parseFunctionBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12100:24)
+    at FlowParserMixin.parseFunctionBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:2895:11)
+    at FlowParserMixin.parseFunctionBodyAndFinish (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12086:10)
+    at FlowParserMixin.parseFunctionBodyAndFinish (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:2903:18)
+    at D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13445:12
+    at FlowParserMixin.withSmartMixTopicForbiddingContext (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12403:14)
+    at FlowParserMixin.parseFunction (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13444:10)
+    at FlowParserMixin.parseExportDefaultExpression (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13907:19)
+    at FlowParserMixin.parseExportDefaultExpression (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:2966:18)
+    at FlowParserMixin.parseExport (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13828:25)
+    at FlowParserMixin.parseStatementContent (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12878:27)
+    at FlowParserMixin.parseStatementLike (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12767:17)
+    at FlowParserMixin.parseStatementLike (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:2918:24)
+    at FlowParserMixin.parseModuleItem (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12744:17)
+    at FlowParserMixin.parseBlockOrModuleBlockBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13316:36)
+    at FlowParserMixin.parseBlockBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13309:10)
+    at FlowParserMixin.parseProgram (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12622:10)
+    at FlowParserMixin.parseTopLevel (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12612:25)
+    at FlowParserMixin.parseTopLevel (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:3685:28)
+    at FlowParserMixin.parse (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:14488:25)
+    at parse (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:14522:38)
+    at parser (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\core\lib\parser\index.js:41:34)
+    at parser.next (<anonymous>)
+    at normalizeFile (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\core\lib\transformation\normalize-file.js:64:37)
+    at normalizeFile.next (<anonymous>)
+    at run (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\core\lib\transformation\index.js:22:50)
+
+[1m[31mERROR[39m[22m in [1m[eslint] 
+src\pages\TreePage.jsx
+  Line 755:  Parsing [1m[31merror[39m[22m[1m: [1m[31mUnexpected[39m[22m[1m token (755:0)
+
+[39m[22m
+
+webpack compiled with [1m[31m2 errors[39m[22m
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src\pages\TreePage.jsx
+  Line 376:6:  React Hook useEffect has a missing dependency: 'playback'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+[1m[33mWARNING[39m[22m in [1m[eslint] 
+src\pages\TreePage.jsx
+  Line 376:6:  React Hook useEffect has a missing dependency: 'playback'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+[39m[22m
+
+webpack compiled with [1m[33m1 warning[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src\pages\LinkedListPage.jsx
+  Line 76:6:  React Hook useEffect has a missing dependency: 'playback'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+[1m[33mWARNING[39m[22m in [1m[eslint] 
+src\pages\LinkedListPage.jsx
+  Line 76:6:  React Hook useEffect has a missing dependency: 'playback'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+[39m[22m
+
+webpack compiled with [1m[33m1 warning[39m[22m
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src\pages\LinkedListPage.jsx
+  Line 76:6:  React Hook useEffect has a missing dependency: 'playback'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+[1m[33mWARNING[39m[22m in [1m[eslint] 
+src\pages\LinkedListPage.jsx
+  Line 76:6:  React Hook useEffect has a missing dependency: 'playback'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+[39m[22m
+
+webpack compiled with [1m[33m1 warning[39m[22m
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src\pages\LinkedListPage.jsx
+  Line 76:6:  React Hook useEffect has a missing dependency: 'playback'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+[1m[33mWARNING[39m[22m in [1m[eslint] 
+src\pages\LinkedListPage.jsx
+  Line 76:6:  React Hook useEffect has a missing dependency: 'playback'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+[39m[22m
+
+webpack compiled with [1m[33m1 warning[39m[22m
+Compiling...
+Failed to compile.
+
+Attempted import error: '@/pages/LinkedListPage' does not contain a default export (imported as 'LinkedListPage').
+[1m[31mERROR[39m[22m in [1m./src/App.js[39m[22m [1m[32m102:42-56[39m[22m
+[1mexport 'default' (imported as 'LinkedListPage') was [1m[31mnot found[39m[22m[1m in '@/pages/LinkedListPage' [1m[31m(module has no exports)[39m[22m[1m[39m[22m
+
+webpack compiled with [1m[31m1 error[39m[22m
+Compiling...
+Failed to compile.
+
+[eslint] 
+src\pages\LinkedListPage.jsx
+Syntax error: Unexpected token (386:0) (386:undefined)
+[1m[31mERROR[39m[22m in [1m./src/pages/LinkedListPage.jsx[39m[22m
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\src\pages\LinkedListPage.jsx: Unexpected token (386:0)
+
+[0m [90m 384 |[39m     setStepIndex(bounded)[33m;[39m
+ [90m 385 |[39m   }[33m;[39m
+[31m[1m>[22m[39m[90m 386 |[39m
+ [90m     |[39m [31m[1m^[22m[39m[0m
+    at constructor (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:365:19)
+    at FlowParserMixin.raise (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:6599:19)
+    at FlowParserMixin.unexpected (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:6619:16)
+    at FlowParserMixin.parseExprAtom (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:11442:22)
+    at FlowParserMixin.parseExprAtom (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:4764:20)
+    at FlowParserMixin.parseExprSubscripts (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:11081:23)
+    at FlowParserMixin.parseUpdate (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:11066:21)
+    at FlowParserMixin.parseMaybeUnary (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:11046:23)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10899:61)
+    at FlowParserMixin.parseExprOps (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10904:23)
+    at FlowParserMixin.parseMaybeConditional (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10881:23)
+    at FlowParserMixin.parseMaybeAssign (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10831:21)
+    at FlowParserMixin.parseMaybeAssign (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:3549:18)
+    at FlowParserMixin.parseExpressionBase (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10784:23)
+    at D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10780:39
+    at FlowParserMixin.allowInAnd (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12421:16)
+    at FlowParserMixin.parseExpression (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:10780:17)
+    at FlowParserMixin.parseStatementContent (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12895:23)
+    at FlowParserMixin.parseStatementLike (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12767:17)
+    at FlowParserMixin.parseStatementLike (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:2918:24)
+    at FlowParserMixin.parseStatementListItem (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12747:17)
+    at FlowParserMixin.parseBlockOrModuleBlockBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13316:61)
+    at FlowParserMixin.parseBlockBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13309:10)
+    at FlowParserMixin.parseBlock (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13297:10)
+    at FlowParserMixin.parseFunctionBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12100:24)
+    at FlowParserMixin.parseFunctionBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:2895:11)
+    at FlowParserMixin.parseFunctionBodyAndFinish (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12086:10)
+    at FlowParserMixin.parseFunctionBodyAndFinish (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:2903:18)
+    at D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13445:12
+    at FlowParserMixin.withSmartMixTopicForbiddingContext (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12403:14)
+    at FlowParserMixin.parseFunction (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13444:10)
+    at FlowParserMixin.parseExportDefaultExpression (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13907:19)
+    at FlowParserMixin.parseExportDefaultExpression (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:2966:18)
+    at FlowParserMixin.parseExport (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13828:25)
+    at FlowParserMixin.parseStatementContent (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12878:27)
+    at FlowParserMixin.parseStatementLike (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12767:17)
+    at FlowParserMixin.parseStatementLike (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:2918:24)
+    at FlowParserMixin.parseModuleItem (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12744:17)
+    at FlowParserMixin.parseBlockOrModuleBlockBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13316:36)
+    at FlowParserMixin.parseBlockBody (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:13309:10)
+    at FlowParserMixin.parseProgram (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12622:10)
+    at FlowParserMixin.parseTopLevel (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:12612:25)
+    at FlowParserMixin.parseTopLevel (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:3685:28)
+    at FlowParserMixin.parse (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:14488:25)
+    at parse (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\parser\lib\index.js:14522:38)
+    at parser (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\core\lib\parser\index.js:41:34)
+    at parser.next (<anonymous>)
+    at normalizeFile (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\core\lib\transformation\normalize-file.js:64:37)
+    at normalizeFile.next (<anonymous>)
+    at run (D:\D drive\projects\DSA-visualizer\DSA-visualizer\frontend\node_modules\@babel\core\lib\transformation\index.js:22:50)
+
+[1m[31mERROR[39m[22m in [1m[eslint] 
+src\pages\LinkedListPage.jsx
+  Line 386:  Parsing [1m[31merror[39m[22m[1m: [1m[31mUnexpected[39m[22m[1m token (386:0)
+
+[39m[22m
+
+webpack compiled with [1m[31m2 errors[39m[22m
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src\pages\LinkedListPage.jsx
+  Line 233:6:  React Hook useEffect has missing dependencies: 'cycleTargetIndex', 'latestResult.executionTimeMs', 'latestResult.outputText', 'latestResult.statusText', 'nodes', and 'operationTotal'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+[1m[33mWARNING[39m[22m in [1m[eslint] 
+src\pages\LinkedListPage.jsx
+  Line 233:6:  React Hook useEffect has missing dependencies: 'cycleTargetIndex', 'latestResult.executionTimeMs', 'latestResult.outputText', 'latestResult.statusText', 'nodes', and 'operationTotal'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+[39m[22m
+
+webpack compiled with [1m[33m1 warning[39m[22m
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src\pages\LinkedListPage.jsx
+  Line 233:6:  React Hook useEffect has missing dependencies: 'cycleTargetIndex', 'latestResult.executionTimeMs', 'latestResult.outputText', 'latestResult.statusText', 'nodes', and 'operationTotal'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+[1m[33mWARNING[39m[22m in [1m[eslint] 
+src\pages\LinkedListPage.jsx
+  Line 233:6:  React Hook useEffect has missing dependencies: 'cycleTargetIndex', 'latestResult.executionTimeMs', 'latestResult.outputText', 'latestResult.statusText', 'nodes', and 'operationTotal'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+[39m[22m
+
+webpack compiled with [1m[33m1 warning[39m[22m
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src\pages\LinkedListPage.jsx
+  Line 233:6:  React Hook useEffect has missing dependencies: 'cycleTargetIndex', 'latestResult.executionTimeMs', 'latestResult.outputText', 'latestResult.statusText', 'nodes', and 'operationTotal'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+[1m[33mWARNING[39m[22m in [1m[eslint] 
+src\pages\LinkedListPage.jsx
+  Line 233:6:  React Hook useEffect has missing dependencies: 'cycleTargetIndex', 'latestResult.executionTimeMs', 'latestResult.outputText', 'latestResult.statusText', 'nodes', and 'operationTotal'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+[39m[22m
+
+webpack compiled with [1m[33m1 warning[39m[22m
+Compiling...
+Compiled successfully!
+webpack compiled [1m[32msuccessfully[39m[22m

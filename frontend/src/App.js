@@ -9,14 +9,20 @@ import HomeDashboard from "@/pages/HomeDashboard";
 import LinkedListPage from "@/pages/LinkedListPage";
 import MazePage from "@/pages/MazePage";
 import PathfindingPage from "@/pages/PathfindingPage";
-import QueuePage from "@/pages/QueuePage";
 import SortingPage from "@/pages/SortingPage";
-import StackPage from "@/pages/StackPage";
-import TreePage from "@/pages/TreePage";
+import StackQueueModulePage from "@/pages/StackQueueModulePage";
+import TreeModulePage from "@/pages/TreeModulePage";
 
 function App() {
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" themes={["light", "dark", "hacker"]} enableSystem={false}>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="dark"
+      storageKey="algoviz-theme"
+      themes={["light", "dark", "hacker"]}
+      enableSystem={false}
+      disableTransitionOnChange
+    >
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<AppLayout />}>
@@ -25,10 +31,10 @@ function App() {
             <Route path="graph" element={<GraphPage />} />
             <Route path="pathfinding" element={<PathfindingPage />} />
             <Route path="maze" element={<MazePage />} />
-            <Route path="tree" element={<TreePage />} />
+            <Route path="tree" element={<TreeModulePage />} />
             <Route path="linked-list" element={<LinkedListPage />} />
-            <Route path="stack" element={<StackPage />} />
-            <Route path="queue" element={<QueuePage />} />
+            <Route path="stack" element={<StackQueueModulePage initialMode="stack" pageTestId="stack-page" />} />
+            <Route path="queue" element={<StackQueueModulePage initialMode="queue" pageTestId="queue-page" />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>

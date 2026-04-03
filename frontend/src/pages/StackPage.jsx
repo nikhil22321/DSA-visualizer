@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Plus, Search, Sigma, Trash2 } from "lucide-react";
 
-import { AITutorDrawer } from "@/components/common/AITutorDrawer";
+import { StepGuideDrawer } from "@/components/common/StepGuideDrawer";
 import { CodePanel } from "@/components/common/CodePanel";
 import { ControlCluster } from "@/components/common/ControlCluster";
 import { PageMotionWrapper } from "@/components/common/PageMotionWrapper";
@@ -219,7 +219,7 @@ export default function StackPage() {
                 Push/Pop/Peek + Balanced Parentheses + Infix to Postfix + Postfix Evaluation.
               </p>
             </div>
-            <AITutorDrawer
+            <StepGuideDrawer
               algorithm="Stack Operations"
               currentStep={playback.currentStep}
               action={step.action}

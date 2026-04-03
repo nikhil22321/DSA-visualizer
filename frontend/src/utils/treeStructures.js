@@ -169,17 +169,17 @@ export const treeToLayout = (root) => {
   const nodes = [];
   const edges = [];
 
-  const assign = (n, depth, xMin, xMax, parentId = null) => {
+  const assign = (n, depth, xMin, xMax, path = "root", parentId = null) => {
     if (!n) return;
-    const id = `${n.value}-${depth}-${xMin}-${xMax}`;
+    const id = path;
     const x = (xMin + xMax) / 2;
     const y = 70 + depth * 82;
-    nodes.push({ id, value: n.value, x, y, depth, height: n.height || 1 });
+    nodes.push({ id, path, value: n.value, x, y, depth, height: n.height || 1 });
     if (parentId) {
       edges.push({ from: parentId, to: id });
     }
-    assign(n.left, depth + 1, xMin, x - 20, id);
-    assign(n.right, depth + 1, x + 20, xMax, id);
+    assign(n.left, depth + 1, xMin, x - 20, `${path}-L`, id);
+    assign(n.right, depth + 1, x + 20, xMax, `${path}-R`, id);
   };
 
   assign(root, 0, 40, 960);

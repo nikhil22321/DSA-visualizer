@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useTheme } from "next-themes";
 import { Bell, Brain, Gauge, MoonStar, SunMedium, TerminalSquare } from "lucide-react";
 
+import { accentThemeOptions } from "@/data/dashboardConfig";
 import { Switch } from "@/components/ui/switch";
 import { useAppStore } from "@/store/useAppStore";
 
@@ -13,7 +14,16 @@ const themeButtons = [
 
 export const TopControlBar = () => {
   const { theme, setTheme } = useTheme();
-  const { mode, setMode, globalSpeed, setGlobalSpeed, shortcutsEnabled, setShortcutsEnabled } = useAppStore();
+  const {
+    mode,
+    setMode,
+    globalSpeed,
+    setGlobalSpeed,
+    shortcutsEnabled,
+    setShortcutsEnabled,
+    accentTheme,
+    setAccentTheme,
+  } = useAppStore();
 
   useEffect(() => {
     if (!theme) setTheme("dark");
@@ -49,6 +59,29 @@ export const TopControlBar = () => {
         </div>
 
         <div className="flex flex-wrap items-center gap-4" data-testid="global-mode-controls">
+          <div className="flex items-center gap-2 rounded-full border border-border px-3 py-2" data-testid="accent-theme-toggle-group">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Accent</span>
+            <div className="flex items-center gap-2">
+              {accentThemeOptions.map((option) => {
+                const active = accentTheme === option.value;
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => setAccentTheme(option.value)}
+                    className={[
+                      "h-5 w-5 rounded-full border transition-transform duration-200 hover:scale-110",
+                      `accent-swatch accent-swatch-${option.value}`,
+                      active ? "scale-110 ring-2 ring-primary ring-offset-2 ring-offset-background" : "border-border/70",
+                    ].join(" ")}
+                    aria-label={`Use ${option.label} accent color`}
+                    data-testid={`accent-${option.value}-button`}
+                  />
+                );
+              })}
+            </div>
+          </div>
+
           <div className="flex items-center gap-2 rounded-full border border-border px-3 py-2" data-testid="learning-expert-toggle">
             <Brain className="h-4 w-4 text-primary" />
             <button

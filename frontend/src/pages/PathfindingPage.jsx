@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from "react";
 import { Download, RefreshCcw, Save } from "lucide-react";
 
-import { AITutorDrawer } from "@/components/common/AITutorDrawer";
+import { StepGuideDrawer } from "@/components/common/StepGuideDrawer";
 import { CodePanel } from "@/components/common/CodePanel";
 import { ComplexityBadge } from "@/components/common/ComplexityBadge";
 import { ControlCluster } from "@/components/common/ControlCluster";
@@ -34,7 +34,6 @@ export default function PathfindingPage() {
   const [rows, setRows] = useState(18);
   const [cols, setCols] = useState(32);
   const [density, setDensity] = useState(22);
-  const [gridSeed, setGridSeed] = useState(0);
   const visualRef = useRef(null);
 
   const { globalSpeed, setGlobalSpeed, shortcutsEnabled } = useAppStore();
@@ -43,7 +42,6 @@ export default function PathfindingPage() {
 
   const regenerateGrid = () => {
     setGrid(createGrid({ rows, cols, density: density / 100 }));
-    setGridSeed((prev) => prev + 1);
     toast.success("Grid regenerated.");
   };
 
@@ -61,7 +59,7 @@ export default function PathfindingPage() {
     setGrid((prev) => ({ ...prev, walls: [...walls] }));
   };
 
-  const run = useMemo(() => runPathfinding({ grid, algorithm }), [grid, algorithm, gridSeed]);
+  const run = useMemo(() => runPathfinding({ grid, algorithm }), [grid, algorithm]);
   const playback = usePlayback({ steps: run.steps, speed: globalSpeed, shortcutsEnabled });
   const step = run.steps[playback.currentStep] || run.steps[0] || { action: "Ready", internalState: {} };
   const meta = pathfindingMeta[algorithm] || pathfindingMeta.astar;
@@ -112,7 +110,7 @@ export default function PathfindingPage() {
               >
                 <Download className="h-4 w-4" /> PNG
               </Button>
-              <AITutorDrawer
+            <StepGuideDrawer
                 algorithm={meta.label}
                 currentStep={playback.currentStep}
                 action={step.action}

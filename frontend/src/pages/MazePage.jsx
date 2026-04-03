@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from "react";
 import { Download, RefreshCcw, Save } from "lucide-react";
 
-import { AITutorDrawer } from "@/components/common/AITutorDrawer";
+import { StepGuideDrawer } from "@/components/common/StepGuideDrawer";
 import { ComplexityBadge } from "@/components/common/ComplexityBadge";
 import { ControlCluster } from "@/components/common/ControlCluster";
 import { PageMotionWrapper } from "@/components/common/PageMotionWrapper";
@@ -107,7 +107,7 @@ export default function MazePage() {
               >
                 <Download className="h-4 w-4" /> PNG
               </Button>
-              <AITutorDrawer
+            <StepGuideDrawer
                 algorithm={meta.label}
                 currentStep={playback.currentStep}
                 action={step.action}

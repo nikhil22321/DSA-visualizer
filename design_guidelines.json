@@ -175,7 +175,7 @@
     "3. LAYOUT: For the main Visualizer page, use a Resizable Panel Layout (using `react-resizable-panels` or similar, or just Flex/Grid if simpler) to allow users to adjust the size of the Canvas vs Code vs Controls.",
     "4. VISUALIZATION CANVAS: This is the 'Hero' of the app. It must have a subtle grid background (`bg-grid-white/[0.02]`) and be centered.",
     "5. CONTROLS: Group controls logically (Playback, Speed, Input Size). Do not scatter them. Use a 'Control Bar' at the bottom or a 'Control Panel' on the side.",
-    "6. AI TUTOR: Make it a collapsible sidebar or a floating drawer. It should not block the main view.",
+"6. STEP GUIDE: Make it a collapsible sidebar or a floating drawer. It should not block the main view.",
     "7. DEBUGGER: Use a tabular view for 'Distance Arrays' or 'Visited Nodes'. Make it look like a real debugger watch window.",
     "8. ACCESSIBILITY: Ensure color contrast ratios are met, especially in 'Hacker Mode'. Use text labels alongside icons.",
     "9. CHARTING: Use `recharts` for the Complexity Analysis charts. Style them to match the active theme (Grid lines, Axis colors)."

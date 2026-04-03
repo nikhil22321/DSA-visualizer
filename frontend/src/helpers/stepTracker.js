@@ -3,6 +3,12 @@ export const stepMessageFromPayload = (step, index) => {
 
   const prefix = `Step ${index + 1}:`;
 
+  if (step.type === "stack-queue") {
+    return step.message
+      ? `${prefix} ${step.message.replace(/^Step\s+\d+:\s*/i, "")}`
+      : `${prefix} ${step.description || "Processing structure step"}`;
+  }
+
   // ---------------------------
   // 🔹 SORTING (existing)
   // ---------------------------
