@@ -150,42 +150,25 @@ Replace the placeholders below with your final product images before publishing 
 
 ## 📸 Screenshots
 
-### Dashboard
-![Dashboard](screenshots/dashboard.png)
+<p align="center">
+  <img src="screenshots/dashboard.png" width="90%">
+</p>
 
----
+<p align="center">
+  <img src="screenshots/sorting-module.png" width="45%">
+  <img src="screenshots/pathfinding-module.png" width="45%">
+</p>
 
-### Sorting Visualizer
-![Sorting](screenshots/sorting-module.png)
+<p align="center">
+  <img src="screenshots/graph-module.png" width="45%">
+  <img src="screenshots/tree-module.png" width="45%">
+</p>
 
-### Pathfinding Visualizer
-![Pathfinding](screenshots/pathfinding-module.png)
-
----
-
-### Graph Visualizer
-![Graph](screenshots/graph-module.png)
-
-### Tree Visualizer
-![Tree](screenshots/tree-module.png)
-
----
-
-### Linked List
-![Linked List](screenshots/linked_list-module.png)
-
-### Stack
-![Stack](screenshots/stack-module.png)
-
-### Queue
-![Queue](screenshots/queue-module.png)
-
-## ⚙️ How To Run Locally
-### 1. Clone the repository
-```bash
-git clone https://github.com/nikhil22321/DSA-visualizer.git
-cd DSA-visualizer
-```
+<p align="center">
+  <img src="screenshots/linked_list-module.png" width="30%">
+  <img src="screenshots/stack-module.png" width="30%">
+  <img src="screenshots/queue-module.png" width="30%">
+</p>
 
 ### 2. Start the backend
 ```bash
