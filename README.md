@@ -35,14 +35,14 @@
 ## 🎥 Demo
 **Live product:** [dsa-visualizer-xi-nine.vercel.app](https://dsa-visualizer-xi-nine.vercel.app/)
 
-**Suggested media slots for GitHub:**
+<!-- **Suggested media slots for GitHub:**
 
 ```md
 <img src="./screenshots/dashboard.png" width="800"/>
 ![Sorting Visualizer Demo](./screenshots/sorting-module.png)
 ![Pathfinding Visualizer Demo](./screenshots/pathfinding-module.png)
 ![Graph + Tree Modules](./screenshots/graph-module.png)
-```
+``` -->
 
 **Demo ideas to showcase:**
 - Dashboard overview with analytics and module progress
@@ -135,18 +135,66 @@ flowchart LR
 - `build.py` builds the frontend and prepares static assets for deployment.
 - `app.py` exposes the production app entrypoint for the deployed FastAPI service.
 
-## 📸 Screenshots
+<!-- ## 📸 Screenshots -->
 Replace the placeholders below with your final product images before publishing widely.
 
 ```md
-![Dashboard](./screenshots/dashboard.png)
+<!-- ![Dashboard](./screenshots/dashboard.png)
 ![Sorting Module](./screenshots/sorting-module.png)
 ![Pathfinding Module](./screenshots/pathfinding-module.png)
 ![Graph Module](./screenshots/graph-module.png)
 ![Tree Module](./screenshots/tree-module.png)
 ![Linked List Module](./screenshots/linked_list-module.png)
 ![Stack Module](./screenshots/stack-module.png)
-![Queue Module](./screenshots/queue-module.png)
+![Queue Module](./screenshots/queue-module.png) -->
+
+## 📸 Screenshots
+
+<!-- Dashboard -->
+<p align="center">
+  <img src="./screenshots/dashboard.png" width="90%" />
+</p>
+<p align="center">
+  <b>Dashboard Overview</b>
+</p>
+
+---
+
+<!-- Core Modules -->
+<p align="center">
+  <img src="./screenshots/sorting-module.png" width="45%" />
+  <img src="./screenshots/pathfinding-module.png" width="45%" />
+</p>
+<p align="center">
+  <b>Sorting Visualizer</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b>Pathfinding Visualizer</b>
+</p>
+
+---
+
+<!-- Graph + Tree -->
+<p align="center">
+  <img src="./screenshots/graph-module.png" width="45%" />
+  <img src="./screenshots/tree-module.png" width="45%" />
+</p>
+<p align="center">
+  <b>Graph Visualizer</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b>Tree Visualizer</b>
+</p>
+
+---
+
+<!-- Linear DS -->
+<p align="center">
+  <img src="./screenshots/linked_list-module.png" width="30%" />
+  <img src="./screenshots/stack-module.png" width="30%" />
+  <img src="./screenshots/queue-module.png" width="30%" />
+</p>
+<p align="center">
+  <b>Linked List</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b>Stack</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b>Queue</b>
+</p>
 
 ```
 
