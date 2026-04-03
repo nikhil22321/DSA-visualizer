@@ -152,7 +152,7 @@ Replace the placeholders below with your final product images before publishing 
 
 <!-- Dashboard -->
 <p align="center">
-  <img src="./screenshots/dashboard.png" width="90%" />
+  <img src="screenshots/dashboard.png" width="90%" />
 </p>
 <p align="center"><b>Dashboard Overview</b></p>
 
@@ -160,8 +160,8 @@ Replace the placeholders below with your final product images before publishing 
 
 <!-- Core Modules -->
 <p align="center">
-  <img src="./screenshots/sorting-module.png" width="45%" />
-  <img src="./screenshots/pathfinding-module.png" width="45%" />
+  <img src="screenshots/sorting-module.png" width="45%" />
+  <img src="screenshots/pathfinding-module.png" width="45%" />
 </p>
 <p align="center">
   <span style="display:inline-block; width:45%;"><b>Sorting Visualizer</b></span>
@@ -172,8 +172,8 @@ Replace the placeholders below with your final product images before publishing 
 
 <!-- Graph + Tree -->
 <p align="center">
-  <img src="./screenshots/graph-module.png" width="45%" />
-  <img src="./screenshots/tree-module.png" width="45%" />
+  <img src="screenshots/graph-module.png" width="45%" />
+  <img src="screenshots/tree-module.png" width="45%" />
 </p>
 <p align="center">
   <span style="display:inline-block; width:45%;"><b>Graph Visualizer</b></span>
@@ -184,9 +184,9 @@ Replace the placeholders below with your final product images before publishing 
 
 <!-- Linear DS -->
 <p align="center">
-  <img src="./screenshots/linked_list-module.png" width="30%" />
-  <img src="./screenshots/stack-module.png" width="30%" />
-  <img src="./screenshots/queue-module.png" width="30%" />
+  <img src="screenshots/linked_list-module.png" width="30%" />
+  <img src="screenshots/stack-module.png" width="30%" />
+  <img src="screenshots/queue-module.png" width="30%" />
 </p>
 <p align="center">
   <span style="display:inline-block; width:30%;"><b>Linked List</b></span>
