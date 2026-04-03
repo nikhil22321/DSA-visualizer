@@ -150,52 +150,35 @@ Replace the placeholders below with your final product images before publishing 
 
 ## 📸 Screenshots
 
-<!-- Dashboard -->
-<p align="center">
-  <img src="screenshots/dashboard.png" width="90%" />
-</p>
-<p align="center"><b>Dashboard Overview</b></p>
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
 
 ---
 
-<!-- Core Modules -->
-<p align="center">
-  <img src="screenshots/sorting-module.png" width="45%" />
-  <img src="screenshots/pathfinding-module.png" width="45%" />
-</p>
+### Sorting Visualizer
+![Sorting](screenshots/sorting-module.png)
 
-<p align="center">
-  <span style="display:inline-block; width:45%;"><b>Sorting Visualizer</b></span>
-  <span style="display:inline-block; width:45%;"><b>Pathfinding Visualizer</b></span>
-</p>
+### Pathfinding Visualizer
+![Pathfinding](screenshots/pathfinding-module.png)
 
 ---
 
-<!-- Graph + Tree -->
-<p align="center">
-  <img src="screenshots/graph-module.png" width="45%" />
-  <img src="screenshots/tree-module.png" width="45%" />
-</p>
+### Graph Visualizer
+![Graph](screenshots/graph-module.png)
 
-<p align="center">
-  <span style="display:inline-block; width:45%;"><b>Graph Visualizer</b></span>
-  <span style="display:inline-block; width:45%;"><b>Tree Visualizer</b></span>
-</p>
+### Tree Visualizer
+![Tree](screenshots/tree-module.png)
 
 ---
 
-<!-- Linear DS -->
-<p align="center">
-  <img src="screenshots/linked_list-module.png" width="30%" />
-  <img src="screenshots/stack-module.png" width="30%" />
-  <img src="screenshots/queue-module.png" width="30%" />
-</p>
+### Linked List
+![Linked List](screenshots/linked_list-module.png)
 
-<p align="center">
-  <span style="display:inline-block; width:30%;"><b>Linked List</b></span>
-  <span style="display:inline-block; width:30%;"><b>Stack</b></span>
-  <span style="display:inline-block; width:30%;"><b>Queue</b></span>
-</p>
+### Stack
+![Stack](screenshots/stack-module.png)
+
+### Queue
+![Queue](screenshots/queue-module.png)
 
 ## ⚙️ How To Run Locally
 ### 1. Clone the repository
