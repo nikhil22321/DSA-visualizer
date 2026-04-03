@@ -38,10 +38,10 @@
 **Suggested media slots for GitHub:**
 
 ```md
-![AlgoViz Pro Dashboard](./docs/screenshots/dashboard-overview.png)
-![Sorting Visualizer Demo](./docs/screenshots/sorting-visualizer.gif)
-![Pathfinding Visualizer Demo](./docs/screenshots/pathfinding-visualizer.gif)
-![Graph + Tree Modules](./docs/screenshots/graph-tree-modules.png)
+![AlgoViz Pro Dashboard](./screenshots/dashboard.png)
+![Sorting Visualizer Demo](./screenshots/sorting-module.png)
+![Pathfinding Visualizer Demo](./screenshots/pathfinding-module.png)
+![Graph + Tree Modules](./screenshots/graph-module.png)
 ```
 
 **Demo ideas to showcase:**
