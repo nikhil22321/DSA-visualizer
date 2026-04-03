@@ -1,159 +1,148 @@
-# 🚀 AlgoViz Pro (DSA Visualizer)
+﻿# 🚀 AlgoViz Pro (DSA Visualizer)
 
 <p align="center">
-  <strong>A full-stack algorithm learning platform that turns data structures and algorithms into an interactive, product-grade visual experience.</strong>
+  <strong>A full-stack interactive platform for learning data structures and algorithms through polished visual simulations, guided explanations, and hands-on experimentation.</strong>
 </p>
 
 <p align="center">
-  Built for students, recruiters, and engineers who want more than static demos: real-time simulations, guided explanations, analytics, and hands-on experimentation in one polished workspace.
+  Built to feel like a real product, not a classroom demo.
 </p>
 
 <p align="center">
   <a href="https://dsa-visualizer-xi-nine.vercel.app/">Live Demo</a>
-  ·
-  <a href="#-features">Features</a>
-  ·
-  <a href="#-how-to-run-locally">Run Locally</a>
-  ·
-  <a href="#-contributing">Contributing</a>
+  |
+  <a href="#features">Features</a>
+  |
+  <a href="#modules">Modules</a>
+  |
+  <a href="#screenshots">Screenshots</a>
+  |
+  <a href="#how-to-run-locally">Run Locally</a>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/github/stars/nikhil22321/DSA-visualizer?style=for-the-badge" alt="GitHub stars" />
   <img src="https://img.shields.io/github/forks/nikhil22321/DSA-visualizer?style=for-the-badge" alt="GitHub forks" />
   <img src="https://img.shields.io/github/issues/nikhil22321/DSA-visualizer?style=for-the-badge" alt="GitHub issues" />
-  <img src="https://img.shields.io/github/last-commit/nikhil22321/DSA-visualizer?style=for-the-badge" alt="Last commit" />
+  <img src="https://img.shields.io/github/last-commit/nikhil22321/DSA-visualizer?style=for-the-badge" alt="GitHub last commit" />
   <img src="https://img.shields.io/badge/Frontend-React%2018-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 18" />
   <img src="https://img.shields.io/badge/Backend-FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" />
-  <img src="https://img.shields.io/badge/Deployment-Vercel-black?style=for-the-badge&logo=vercel" alt="Vercel" />
-  <img src="https://img.shields.io/badge/License-Add%20a%20LICENSE-lightgrey?style=for-the-badge" alt="License placeholder" />
+  <img src="https://img.shields.io/badge/Deployment-Vercel-000000?style=for-the-badge&logo=vercel" alt="Vercel" />
+  <img src="https://img.shields.io/badge/License-Add%20License-lightgrey?style=for-the-badge" alt="License placeholder" />
 </p>
 
 ## ✨ Tagline
-**AlgoViz Pro** is a modern DSA visualization platform that combines real-time algorithm playback, interactive data-structure builders, learning analytics, and guided explanations to make technical concepts feel intuitive, visual, and memorable.
+AlgoViz Pro transforms DSA learning into a visual, interactive, and measurable experience with real-time animations, algorithm walkthroughs, analytics, and custom data-structure builders.
 
 ## 🎥 Demo
-**Live product:** [dsa-visualizer-xi-nine.vercel.app](https://dsa-visualizer-xi-nine.vercel.app/)
+**Live application:** [https://dsa-visualizer-xi-nine.vercel.app/](https://dsa-visualizer-xi-nine.vercel.app/)
 
-<!-- **Suggested media slots for GitHub:**
-
-```md
-<img src="./screenshots/dashboard.png" width="800"/>
-![Sorting Visualizer Demo](./screenshots/sorting-module.png)
-![Pathfinding Visualizer Demo](./screenshots/pathfinding-module.png)
-![Graph + Tree Modules](./screenshots/graph-module.png)
-``` -->
-
-**Demo ideas to showcase:**
-- Dashboard overview with analytics and module progress
-- Sorting animation with pseudocode highlighting and live stats
-- Pathfinding run comparing BFS, DFS, Dijkstra, and A*
-- Graph or tree builder with user-created structures
+**Why this project stands out**
+- Real-time algorithm visualization with polished motion and state transitions
+- Learning-first UX with step tracking, pseudocode highlighting, and output panels
+- Full-stack architecture with backend APIs for recommendations, practice, saved runs, and guided explanations
+- Product-style dashboard that makes the project feel deployment-ready and recruiter-friendly
 
 ## 🌟 Features
 ### Learning Experience
-- Real-time algorithm visualization with smooth, high-clarity animations
-- Step-by-step execution for understanding algorithm flow instead of just the final answer
-- Pseudocode highlighting synchronized with runtime behavior
-- Practice mode with MCQs for concept reinforcement
-- Built-in complexity simulator for intuition around performance trade-offs
+- Real-time algorithm visualization with smooth, pro-level animations
+- Step-by-step execution to understand each decision an algorithm makes
+- Pseudocode highlighting synchronized with the current execution state
+- Practice mode with MCQs to reinforce concepts
+- Complexity simulator for building performance intuition
 
 ### Interactivity
-- Build your own graph, tree, linked list, stack, or queue directly in the UI
-- Adjustable inputs and algorithm controls for experimentation
-- Replay-friendly execution flows and structured run data
-- Theme support including `dark`, `light`, and `hacker` modes
+- Build your own graph, tree, linked list, stack, and queue directly in the UI
+- Change inputs, rerun algorithms, and observe behavior live
+- Interactive execution flows designed for experimentation, not static viewing
+- Theme support with `dark`, `light`, and `hacker` modes
 
-### Product-Level Additions
-- Dashboard with progress, activity, and learning analytics
-- Algorithm recommendation system based on input scenario
-- Statistics tracking such as comparisons, swaps, visited nodes, and execution flow
-- AI-powered step guide with fallback tutor behavior for guided explanations
-- Saved run API and share-token support for replayable sessions
+### Product Features
+- Dashboard with activity, progress, and analytics
+- Algorithm recommendation system based on scenario inputs
+- Statistics tracking such as comparisons, swaps, and visited nodes
+- AI-powered step guide with provider-based tutor support and fallback logic
+- Saved run support with share tokens for replayable sessions
 
-## 🧩 Modules Breakdown
+## 🧩 Modules
 ### Sorting Visualizer
-- Compare sorting strategies with animated transitions, live statistics, step tracking, and pseudocode-driven learning.
-- Great for understanding algorithm behavior beyond time complexity alone.
+Compare sorting algorithms with animated transitions, live metrics, step tracking, and pseudocode support. Designed to make runtime behavior intuitive, not just theoretical.
 
 ### Pathfinding Visualizer
-- Explore grid-based traversal and shortest-path algorithms including **BFS**, **DFS**, **Dijkstra**, and **A\***.
-- Designed to make frontier expansion, visited states, and path construction visually intuitive.
+Explore grid-based pathfinding with **BFS**, **DFS**, **Dijkstra**, and **A\***. Great for understanding search strategy, frontier expansion, and shortest-path behavior.
 
 ### Maze Generator
-- Generate procedural mazes using **Recursive Backtracking**, **Prim's Algorithm**, and **Recursive Division**.
-- Ideal for pairing generation logic with pathfinding experiments.
+Generate procedural mazes using **Recursive Backtracking**, **Prim's Algorithm**, and **Recursive Division**, then pair them with pathfinding experiments.
 
 ### Graph Visualizer
-- Create graphs interactively and inspect traversal or shortest-path behavior with state-aware controls.
-- Built for experimentation, debugging, and algorithm intuition.
+Create and manipulate graphs interactively, then run graph algorithms in a state-aware environment built for debugging and exploration.
 
 ### Tree Visualizer
-- Visualize tree operations through manual construction, BST interactions, and traversal workflows like **DFS** and **BFS**.
-- Useful for learning structural properties and navigation logic.
+Work with manual trees, BST flows, DFS, BFS, and advanced structural operations in a visual environment that makes node relationships easier to understand.
 
 ### Linked List Visualizer
-- Perform insertions, deletions, reversals, traversal, and cycle-detection style operations with animated node updates.
-- Helps demystify pointers and sequence manipulation.
+Visualize insertions, deletions, reversals, traversals, and cycle-oriented behavior with animations that make pointer logic easier to follow.
 
-### Stack & Queue Visualizer
-- Practice **LIFO** and **FIFO** operations with clear state transitions and animated execution feedback.
-- Simple enough for beginners, polished enough to feel like a real product module.
+### Stack and Queue Visualizer
+Practice **LIFO** and **FIFO** operations through clear structure transitions and guided interactions.
 
 ## 🛠️ Tech Stack
-| Layer | Technology |
+| Layer | Technologies |
 | --- | --- |
 | Frontend | React 18, React Router, CRACO, Tailwind CSS |
-| UI / Motion | Radix UI, Framer Motion, Lucide Icons, Recharts |
-| Visualization | D3, XYFlow, custom interactive components |
-| State / Data | Zustand, Axios |
+| UI / Motion | Radix UI, Framer Motion, Lucide React, Recharts |
+| Visualization | D3, XYFlow, custom interactive visual components |
+| State / Networking | Zustand, Axios |
 | Backend | FastAPI, Uvicorn, Pydantic |
-| Database | MongoDB via Motor with in-memory fallback |
-| AI Tutor | OpenAI or Gemini API integration with heuristic fallback |
+| Persistence | MongoDB via Motor with in-memory fallback |
+| AI Integration | OpenAI or Gemini tutor provider support |
 | Deployment | Vercel |
-| Testing | Pytest, frontend test setup via CRACO |
+| Testing | Pytest, frontend test setup through CRACO |
 
 ## 🏗️ Architecture Overview
-AlgoViz Pro follows a clean full-stack architecture where the React frontend handles rendering, animation, and learner interaction, while the FastAPI backend provides API endpoints for guided explanations, saved runs, recommendations, practice questions, and health/status services.
+AlgoViz Pro uses a full-stack architecture where the React frontend handles rendering, motion, learner interaction, and module workflows, while the FastAPI backend powers guided explanations, recommendations, run persistence, practice questions, and deployment-ready APIs.
 
 ```mermaid
 flowchart LR
   A["React Frontend"] -->|"REST /api"| B["FastAPI Backend"]
   B --> C["Tutor Service"]
   B --> D["Recommendation Engine"]
-  B --> E["Practice Question Service"]
+  B --> E["Practice Service"]
   B --> F["Run Persistence Layer"]
   F --> G["MongoDB"]
   F --> H["In-Memory Fallback"]
   C --> I["OpenAI / Gemini"]
-  B --> J["Vercel Deployment"]
 ```
 
-### High-level structure
-- `frontend/` contains the React application, UI system, pages, modules, motion, analytics, and visualization logic.
-- `backend/` contains the FastAPI server, API models, tutor service, persistence layer, and backend tests.
+### Project Structure
+- `frontend/` contains the React application, pages, UI components, modules, analytics, and visualization logic.
+- `backend/` contains the FastAPI server, tutor service, persistence layer, and backend tests.
 - `build.py` builds the frontend and prepares static assets for deployment.
-- `app.py` exposes the production app entrypoint for the deployed FastAPI service.
+- `app.py` exposes the production FastAPI entrypoint.
 
 ## 📸 Screenshots
 <p align="center">
-  <img src="./screenshots/dashboard.png" alt="AlgoViz Pro Dashboard" width="90%">
+  <img src="./screenshots/dashboard.png" alt="AlgoViz Pro Dashboard" width="90%" />
 </p>
 
 <p align="center">
-  <img src="./screenshots/sorting-module.png" alt="Sorting Module" width="45%">
-  <img src="./screenshots/pathfinding-module.png" alt="Pathfinding Module" width="45%">
+  <img src="./screenshots/sorting-module.png" alt="Sorting Module" width="45%" />
+  <img src="./screenshots/pathfinding-module.png" alt="Pathfinding Module" width="45%" />
 </p>
 
 <p align="center">
-  <img src="./screenshots/graph-module.png" alt="Graph Module" width="45%">
-  <img src="./screenshots/tree-module.png" alt="Tree Module" width="45%">
+  <img src="./screenshots/graph-module.png" alt="Graph Module" width="45%" />
+  <img src="./screenshots/tree-module.png" alt="Tree Module" width="45%" />
 </p>
 
 <p align="center">
-  <img src="./screenshots/linked_list-module.png" alt="Linked List Module" width="30%">
-  <img src="./screenshots/stack-module.png" alt="Stack Module" width="30%">
-  <img src="./screenshots/queue-module.png" alt="Queue Module" width="30%">
+  <img src="./screenshots/AI-Tutor.png" alt="AI Tutor" width="70%" />
+</p>
+
+<p align="center">
+  <img src="./screenshots/linked_list-module.png" alt="Linked List Module" width="30%" />
+  <img src="./screenshots/stack-module.png" alt="Stack Module" width="30%" />
+  <img src="./screenshots/queue-module.png" alt="Queue Module" width="30%" />
 </p>
 
 ## ⚙️ How To Run Locally
@@ -163,7 +152,7 @@ git clone https://github.com/nikhil22321/DSA-visualizer.git
 cd DSA-visualizer
 ```
 
-### 2. Start the backend
+### 2. Set up and run the backend
 ```bash
 cd backend
 python -m venv venv
@@ -174,13 +163,13 @@ uvicorn server:app --reload --host 127.0.0.1 --port 8001
 ```
 
 ### 3. Configure the frontend
-Create `frontend/.env.local` and point it to the backend:
+Create `frontend/.env.local` with:
 
 ```env
 REACT_APP_BACKEND_URL=http://127.0.0.1:8001
 ```
 
-### 4. Start the frontend
+### 4. Run the frontend
 ```bash
 cd frontend
 npm install
@@ -189,58 +178,50 @@ npm start
 
 ### 5. Open the app
 - Frontend: `http://localhost:3000`
-- Backend health check: `http://127.0.0.1:8001/api/health`
+- Backend health endpoint: `http://127.0.0.1:8001/api/health`
 
-### Optional services
-- If `MongoDB` is configured in `backend/.env`, saved runs and tutor history persist to the database.
-- If no database is configured, the backend falls back to in-memory storage.
-- If `OPENAI_API_KEY` or `GEMINI_API_KEY` is configured, the step guide can return AI-generated explanations.
+### Optional configuration
+- If `MongoDB` is configured in `backend/.env`, saved runs and tutor history will persist.
+- If MongoDB is not configured, the backend automatically falls back to in-memory storage.
+- If `OPENAI_API_KEY` or `GEMINI_API_KEY` is configured, the guided explanation service can use AI-generated tutoring responses.
 
-### Test commands
+### Run tests
 ```bash
-# Backend
 cd backend
 pytest
 
-# Frontend
-cd frontend
+cd ../frontend
 npm test
 ```
 
 ## 🚀 Future Improvements
-- Add side-by-side algorithm comparison mode across more modules
-- Expand tree and graph coverage with more advanced algorithms and edge cases
-- Add user authentication and saved learner profiles
-- Introduce collaborative classrooms or shareable public sessions
-- Add benchmark export, run history dashboards, and richer performance reports
-- Improve mobile-first interactions for smaller screens
+- Add more advanced graph and tree algorithms
+- Expand side-by-side algorithm comparison workflows
+- Add authentication and persistent learner profiles
+- Support saved dashboards and richer run history insights
+- Improve mobile-first usability and responsiveness
+- Add export and sharing workflows for classrooms and interview prep
 
 ## 🤝 Contributing
-Contributions, ideas, and improvements are welcome.
+Contributions are welcome if you want to improve the UI, add algorithms, refine animations, strengthen tests, or polish the overall product experience.
 
-### Ways to contribute
-- Report bugs or UX issues
-- Suggest new algorithms or visual modules
-- Improve animations, accessibility, or performance
-- Add tests, documentation, or developer tooling
-
-### Contribution flow
+### Suggested workflow
 ```bash
 git checkout -b feature/your-feature-name
 git commit -m "Add your feature"
 git push origin feature/your-feature-name
 ```
 
-Then open a pull request with a clear summary of the improvement and screenshots if the change affects the UI.
+Then open a pull request with a concise summary and screenshots if your changes affect the UI.
 
 ## 👨‍💻 Author
 **Nikhil**
 
 - GitHub: [@nikhil22321](https://github.com/nikhil22321)
-- Project: [AlgoViz Pro Live Demo](https://dsa-visualizer-xi-nine.vercel.app/)
+- Live Demo: [AlgoViz Pro](https://dsa-visualizer-xi-nine.vercel.app/)
 
 ---
 
 <p align="center">
-  <strong>If you like the project, consider giving it a star and sharing feedback.</strong>
+  <strong>If you like the project, consider giving it a star.</strong>
 </p>
