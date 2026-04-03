@@ -135,63 +135,25 @@ flowchart LR
 - `build.py` builds the frontend and prepares static assets for deployment.
 - `app.py` exposes the production app entrypoint for the deployed FastAPI service.
 
-<!-- ## 📸 Screenshots -->
-Replace the placeholders below with your final product images before publishing widely.
-
-```md
-<!-- ![Dashboard](./screenshots/dashboard.png)
-![Sorting Module](./screenshots/sorting-module.png)
-![Pathfinding Module](./screenshots/pathfinding-module.png)
-![Graph Module](./screenshots/graph-module.png)
-![Tree Module](./screenshots/tree-module.png)
-![Linked List Module](./screenshots/linked_list-module.png)
-![Stack Module](./screenshots/stack-module.png)
-![Queue Module](./screenshots/queue-module.png) -->
-
 ## 📸 Screenshots
-
-<!-- Dashboard -->
 <p align="center">
-  <img src="screenshots/dashboard.png" width="90%" />
-</p>
-<p align="center"><b>Dashboard Overview</b></p>
-
----
-
-<!-- Core Modules -->
-<p align="center">
-  <img src="screenshots/sorting-module.png" width="45%" />
-  <img src="screenshots/pathfinding-module.png" width="45%" />
-</p>
-<p align="center">
-  <span style="display:inline-block; width:45%;"><b>Sorting Visualizer</b></span>
-  <span style="display:inline-block; width:45%;"><b>Pathfinding Visualizer</b></span>
+  <img src="./screenshots/dashboard.png" alt="AlgoViz Pro Dashboard" width="90%">
 </p>
 
----
-
-<!-- Graph + Tree -->
 <p align="center">
-  <img src="screenshots/graph-module.png" width="45%" />
-  <img src="screenshots/tree-module.png" width="45%" />
-</p>
-<p align="center">
-  <span style="display:inline-block; width:45%;"><b>Graph Visualizer</b></span>
-  <span style="display:inline-block; width:45%;"><b>Tree Visualizer</b></span>
+  <img src="./screenshots/sorting-module.png" alt="Sorting Module" width="45%">
+  <img src="./screenshots/pathfinding-module.png" alt="Pathfinding Module" width="45%">
 </p>
 
----
-
-<!-- Linear DS -->
 <p align="center">
-  <img src="screenshots/linked_list-module.png" width="30%" />
-  <img src="screenshots/stack-module.png" width="30%" />
-  <img src="screenshots/queue-module.png" width="30%" />
+  <img src="./screenshots/graph-module.png" alt="Graph Module" width="45%">
+  <img src="./screenshots/tree-module.png" alt="Tree Module" width="45%">
 </p>
+
 <p align="center">
-  <span style="display:inline-block; width:30%;"><b>Linked List</b></span>
-  <span style="display:inline-block; width:30%;"><b>Stack</b></span>
-  <span style="display:inline-block; width:30%;"><b>Queue</b></span>
+  <img src="./screenshots/linked_list-module.png" alt="Linked List Module" width="30%">
+  <img src="./screenshots/stack-module.png" alt="Stack Module" width="30%">
+  <img src="./screenshots/queue-module.png" alt="Queue Module" width="30%">
 </p>
 
 ## ⚙️ How To Run Locally
